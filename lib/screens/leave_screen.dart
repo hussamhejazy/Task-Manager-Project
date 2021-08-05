@@ -25,7 +25,9 @@ class _LeaveScreen extends State<LeaveScreen> {
         elevation: 1,
         leading: IconButton(onPressed: (){Navigator.pop(context);},icon: Icon(Icons.arrow_back,),),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.add))
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, '/create_leave_screen');
+          }, icon: Icon(Icons.add))
         ],
       ),
       body: ListView.builder(
