@@ -83,9 +83,9 @@ class HomeScreen extends StatelessWidget {
                   crossAxisSpacing: 10,
                   childAspectRatio: 160 / 94),
               children: [
-                buildElevatedButton(iconImage: 'images/employees_icon.png',label: 'Employees'),
-                buildElevatedButton(iconImage: 'images/employees_icon.png',label: 'Departments'),
-                buildElevatedButton(iconImage: 'images/reportIcon.png',label: 'Reports'),
+                buildElevatedButton(context,route:'',iconImage: 'images/employees_icon.png',label: 'Employees'),
+                buildElevatedButton(context,route:'',iconImage: 'images/employees_icon.png',label: 'Employees'),
+                buildElevatedButton(context,route:'',iconImage: 'images/reportIcon.png',label: 'Employees'),
               ],
             ),
           )
@@ -94,27 +94,27 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  ElevatedButton buildElevatedButton({required String iconImage, required String label}) {
+  ElevatedButton buildElevatedButton(BuildContext context, {required String route,required String iconImage, required String label}) {
     return ElevatedButton(
-                onPressed: () {
-                  //todo//implements
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset(iconImage),
-                    SizedBox(width: 8,),
-                    Text(label,style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      color: Colors.black
-                    ),)
-                  ],
-                ),
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFFFFFF),
-                elevation: 1
-              ),
-            );
+      onPressed: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset(iconImage),
+          SizedBox(width: 8,),
+          Text(label,style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+          ),)
+        ],
+      ),
+      style: ElevatedButton.styleFrom(
+          primary: Color(0xFFFFFFFF),
+          elevation: 1
+      ),
+    );
   }
 }
