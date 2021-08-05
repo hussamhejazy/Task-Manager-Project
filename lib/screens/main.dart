@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/screens/attendance_screen.dart';
+import 'package:task_manager/screens/leave_screen.dart';
 import 'package:task_manager/screens/main_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
@@ -14,12 +15,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/attendance_screen',
+      initialRoute: '/leave_screen',
       routes: {
         '/main_screen':(context)=>MainScreen(),
         '/add_task_screen':(context)=>AddTask(),
         '/task_detail_screen':(context)=>TaskDetail(),
         '/attendance_screen':(context)=>Attendance(),
+        '/leave_screen':(context)=>LeaveScreen(),
+
       },
     );
   }
