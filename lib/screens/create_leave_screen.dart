@@ -13,7 +13,6 @@ class _CreateLeaveScreenState extends State<CreateLeaveScreen> {
   int _value = 1;
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +121,7 @@ class _CreateLeaveScreenState extends State<CreateLeaveScreen> {
                           ),
                           IconButton(
                             onPressed: () {
-                              _pickDate(context, startDateSelect: false);
+                             _pickDate(context, startDateSelect: false);
                             },
                             icon: Icon(
                               Icons.date_range,
@@ -154,12 +153,14 @@ class _CreateLeaveScreenState extends State<CreateLeaveScreen> {
       lastDate: DateTime(DateTime.now().year + 5),
     );
 
+
     if (newDate == null) return;
 
     setState(() => startDateSelect ? startDate = newDate : endDate = newDate);
 
     return startDateSelect ? startDate : endDate;
   }
+
 
   String get _getStartDate => (startDate == null)
       ? 'Start'
