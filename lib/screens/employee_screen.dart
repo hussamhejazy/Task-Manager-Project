@@ -26,9 +26,12 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
       backgroundColor: Colors.white,
+      iconTheme: IconThemeData(
+        color: Color(0xFF4B53F5)
+      ),
       title:Text('Employees',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 21,color: Colors.black)
       ,),
-      elevation: 5,
+      elevation: 1,
       actions: [
           IconButton(onPressed: (){
             Navigator.pushReplacementNamed(context, '/add_employee_screen');

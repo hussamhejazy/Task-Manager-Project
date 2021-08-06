@@ -13,7 +13,10 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
+        iconTheme: IconThemeData(
+            color: Color(0xFF4B53F5)
+        ),
+        elevation: 1,
         backgroundColor: Colors.white,
         title: Text(
           'Add Employees',
