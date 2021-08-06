@@ -1,8 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Hussam Hejazy',
+                          'Employee Name',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -67,7 +72,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 Image.asset(
-                  'images/vector1.png',
+                  'images/welcom.png',
                   alignment: AlignmentDirectional.bottomEnd,
                 )
               ],
@@ -83,17 +88,13 @@ class HomeScreen extends StatelessWidget {
                   crossAxisSpacing: 10,
                   childAspectRatio: 160 / 94),
               children: [
-                buildElevatedButton(context,route:'',iconImage: 'images/employees_icon.png',label: 'Employees'),
-                buildElevatedButton(context,route:'',iconImage: 'images/employees_icon.png',label: 'Employees'),
-                buildElevatedButton(context,route:'',iconImage: 'images/reportIcon.png',label: 'Employees'),
+                buildElevatedButton(context,route:'/emoplyee_screen',iconImage: 'images/employees_icon.png',label: 'Employees'),
+                buildElevatedButton(context,route:'/department_screen',iconImage: 'images/employees_icon.png',label: 'Departments'),
+                buildElevatedButton(context,route:'/reports_screen',iconImage: 'images/employees_icon.png',label: 'Reports'),
               ],
             ),
-          )
-        ],
-      ),
-    );
+          )],),);
   }
-
   ElevatedButton buildElevatedButton(BuildContext context, {required String route,required String iconImage, required String label}) {
     return ElevatedButton(
       onPressed: () {
@@ -116,5 +117,4 @@ class HomeScreen extends StatelessWidget {
           elevation: 1
       ),
     );
-  }
-}
+  }}

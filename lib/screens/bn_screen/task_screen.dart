@@ -41,7 +41,7 @@ class _TaskScreenState extends State<TaskScreen>
             indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: Color(0xFF4B53F5), width: 1)),
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            indicatorPadding: EdgeInsets.symmetric(horizontal: 8),
             tabs: [
               Tab(text: 'New Task'),
               Tab(text: 'In Progress'),
