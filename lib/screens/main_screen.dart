@@ -30,10 +30,8 @@ class _MainScreenState extends State<MainScreen> {
         color: Colors.black
       ),
       ),
-        elevation:3,
+        elevation:0,
         backgroundColor: Colors.white,
-        brightness: Brightness.dark,
-        leading: GestureDetector(behavior: HitTestBehavior.translucent,onTap: (){}),
           ),
           bottomNavigationBar: BottomNavigationBar(
             onTap: (int selectedItemIndex){
