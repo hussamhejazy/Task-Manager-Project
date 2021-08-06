@@ -10,8 +10,12 @@ class _AddDepartmentScreenState extends State<AddDepartmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 5,
+        iconTheme: IconThemeData(
+            color: Color(0xFF4B53F5)
+        ),
+        elevation: 1,
         backgroundColor: Colors.white,
         title: Text(
           'Add Department',
