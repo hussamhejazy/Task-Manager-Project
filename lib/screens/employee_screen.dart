@@ -42,8 +42,6 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
           horizontal: 15,
           vertical: 15,
         ),        itemCount: _names.length,
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Card(
             elevation: 5,

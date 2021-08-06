@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/leave_screen',
+      initialRoute: '/main_screen',
       routes: {
         '/main_screen':(context)=>MainScreen(),
         '/add_task_screen':(context)=>AddTask(),
@@ -37,8 +37,6 @@ class MyApp extends StatelessWidget {
 
       },
     );
-
-    //aaaaaa
   }
 }
 

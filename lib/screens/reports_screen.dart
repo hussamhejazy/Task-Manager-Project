@@ -12,8 +12,11 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 5,
+        elevation: 1,
         backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Color(0xFF4B53F5)
+        ),
         title: Text(
           'Reports',
           style: TextStyle(
@@ -31,8 +34,8 @@ class _ReportsScreenState extends State<ReportsScreen> {
         crossAxisSpacing: 10,
         childAspectRatio: 160 / 94),
         children: [
-        buildElevatedButton(context,route:'/emoplyee_screen',iconImage: 'images/time.png',label: 'Attendance'),
-        buildElevatedButton(context,route:'/department_screen',iconImage: 'images/leave.png',label: 'Leave'),
+        buildElevatedButton(context,route:'/attendance_screen',iconImage: 'images/time.png',label: 'Attendance'),
+        buildElevatedButton(context,route:'/leave_screen',iconImage: 'images/leave.png',label: 'Leave'),
         buildElevatedButton(context,route:'/reports_screen',iconImage: 'images/employees_icon.png',label: 'Team'),
     ],
       ),

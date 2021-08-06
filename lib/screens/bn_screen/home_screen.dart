@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisSpacing: 10,
                   childAspectRatio: 160 / 94),
               children: [
-                buildElevatedButton(context,route:'/emoplyee_screen',iconImage: 'images/employees_icon.png',label: 'Employees'),
+                buildElevatedButton(context,route:'/employee_screen',iconImage: 'images/employees_icon.png',label: 'Employees'),
                 buildElevatedButton(context,route:'/department_screen',iconImage: 'images/employees_icon.png',label: 'Departments'),
                 buildElevatedButton(context,route:'/reports_screen',iconImage: 'images/employees_icon.png',label: 'Reports'),
               ],
