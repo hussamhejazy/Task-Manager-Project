@@ -84,7 +84,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                     width: 1
                 )
             ),
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            indicatorPadding: EdgeInsets.symmetric(horizontal: 8),
             tabs: [
               Tab(text: 'Requests'),
               Tab(text: 'Holidays'),

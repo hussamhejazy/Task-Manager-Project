@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
-class BnScreen{
+class BnScreen {
+  final String title;
   final Widget widget;
 
-  BnScreen({required this.widget});
+  const BnScreen({
+    required this.title,
+    required this.widget,
+  });
 }
