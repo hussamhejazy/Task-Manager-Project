@@ -13,6 +13,8 @@ import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_scree
 import 'package:task_manager/screens/reports_screen.dart';
 import 'package:task_manager/screens/team_screen.dart';
 
+import 'launch_screen.dart';
+
 void main() =>runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -23,8 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login_screen',
+      initialRoute: '/launch_screen',
       routes: {
+        '/launch_screen':(context)=>LaunchScreen(),
         '/main_screen':(context)=>MainScreen(),
         '/login_screen':(context)=>LoginScreen(),
         '/add_task_screen':(context)=>AddTask(),
