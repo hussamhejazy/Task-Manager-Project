@@ -18,7 +18,7 @@ class _LeaveScreen extends State<LeaveScreen> {
         ),
         backgroundColor: Colors.white,
         title: Text(
-          'Attendance',
+          'Leave',
           style: TextStyle(
               fontSize: 21, fontWeight: FontWeight.bold, color: Colors.black),
         ),

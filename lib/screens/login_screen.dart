@@ -74,8 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 25),
               ElevatedButton(
-                onPressed: () async {
-                },
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/main_screen');                },
                 child: Text('login'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
