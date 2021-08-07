@@ -36,7 +36,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
         children: [
         buildElevatedButton(context,route:'/attendance_screen',iconImage: 'images/time.png',label: 'Attendance'),
         buildElevatedButton(context,route:'/leave_screen',iconImage: 'images/leave.png',label: 'Leave'),
-        buildElevatedButton(context,route:'/reports_screen',iconImage: 'images/employees_icon.png',label: 'Team'),
+        buildElevatedButton(context,route:'/team_screen',iconImage: 'images/employees_icon.png',label: 'Team'),
     ],
       ),
 

@@ -6,10 +6,12 @@ import 'package:task_manager/screens/create_leave_screen.dart';
 import 'package:task_manager/screens/department_screen.dart';
 import 'package:task_manager/screens/employee_screen.dart';
 import 'package:task_manager/screens/leave_screen.dart';
+import 'package:task_manager/screens/login_screen.dart';
 import 'package:task_manager/screens/main_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
 import 'package:task_manager/screens/reports_screen.dart';
+import 'package:task_manager/screens/team_screen.dart';
 
 void main() =>runApp(const MyApp());
 
@@ -21,9 +23,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/main_screen',
+      initialRoute: '/login_screen',
       routes: {
         '/main_screen':(context)=>MainScreen(),
+        '/login_screen':(context)=>LoginScreen(),
         '/add_task_screen':(context)=>AddTask(),
         '/task_detail_screen':(context)=>TaskDetail(),
         '/attendance_screen':(context)=>Attendance(),
@@ -34,9 +37,8 @@ class MyApp extends StatelessWidget {
         '/department_screen':(context)=> DepartmentScreen(),
         '/add_department_screen':(context)=> AddDepartmentScreen(),
         '/reports_screen':(context)=> ReportsScreen(),
+        '/team_screen':(context)=> TeamScreen(),
 
-        //todo// rawand
-        // اكتبي اسمك هنا
       },
     );
   }

@@ -64,6 +64,8 @@ flutter:
     - images/profile.png
     - images/time.png
     - images/leave.png
+    - images/teamtwo.png
+    - images/teamfirst.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
