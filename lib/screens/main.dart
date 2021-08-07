@@ -35,6 +35,8 @@ class MyApp extends StatelessWidget {
         '/add_department_screen':(context)=> AddDepartmentScreen(),
         '/reports_screen':(context)=> ReportsScreen(),
 
+        //todo// rawand
+        // اكتبي اسمك هنا
       },
     );
   }
