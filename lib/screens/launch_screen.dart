@@ -14,7 +14,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
       //String route = FbAuthController().isLoggedIn ? '/main_screen' : '/login_screen';
-      Navigator.pushReplacementNamed(context, '/main_screen');
+      Navigator.pushReplacementNamed(context, '/login_screen');
     });
   }
 
