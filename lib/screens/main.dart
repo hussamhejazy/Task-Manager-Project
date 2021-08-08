@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/screens/add_departtment_Screen.dart';
 import 'package:task_manager/screens/add_employee_screen.dart';
@@ -14,7 +15,13 @@ import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_scree
 import 'package:task_manager/screens/reports_screen.dart';
 import 'package:task_manager/screens/team_screen.dart';
 
-void main() =>runApp(const MyApp());
+import 'launch_screen.dart';
+
+void main() async{
+ WidgetsFlutterBinding.ensureInitialized();
+ await Firebase.initializeApp();
+ runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -24,8 +31,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login_screen',
+      initialRoute: '/launch_screen',
       routes: {
+        '/launch_screen':(context)=>LaunchScreen(),
         '/main_screen':(context)=>MainScreen(),
         '/login_screen':(context)=>LoginScreen(),
         '/add_task_screen':(context)=>AddTask(),
