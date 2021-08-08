@@ -5,6 +5,7 @@ import 'package:task_manager/screens/attendance_screen.dart';
 import 'package:task_manager/screens/create_leave_screen.dart';
 import 'package:task_manager/screens/department_screen.dart';
 import 'package:task_manager/screens/employee_screen.dart';
+import 'package:task_manager/screens/hi_screen.dart';
 import 'package:task_manager/screens/leave_screen.dart';
 import 'package:task_manager/screens/login_screen.dart';
 import 'package:task_manager/screens/main_screen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/add_department_screen':(context)=> AddDepartmentScreen(),
         '/reports_screen':(context)=> ReportsScreen(),
         '/team_screen':(context)=> TeamScreen(),
+        '/hi_screen':(context)=> HiScreen(),
 
       },
     );

@@ -66,6 +66,7 @@ flutter:
     - images/leave.png
     - images/teamtwo.png
     - images/teamfirst.png
+    - images/hi.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
