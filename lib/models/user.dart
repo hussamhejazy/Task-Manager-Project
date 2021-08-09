@@ -3,5 +3,6 @@ class User {
   String email;
 
 
+
   User({required this.name, required this.email});
 }

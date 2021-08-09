@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
         ),
       ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -79,7 +79,11 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
                   ),
                 ),
               ),
-
+              SizedBox(height: 25),
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/create_account_screen'),
+                child: Text('CREATE ACCOUNT'),
+              ),
             ],
           ),
         )
@@ -106,7 +110,9 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
         email: _emailTextController.text,
         password: _passwordTextController.text);
     if (status) {
-      Navigator.pushReplacementNamed(context, '/main_screen');
+      Future.delayed(Duration(seconds: 2),(){
+        Navigator.pushReplacementNamed(context, '/main_screen');
+      });
     }
   }
   User get user {
