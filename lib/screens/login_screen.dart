@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/models/user.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/utils/helpers.dart';
+import 'package:task_manager/firebase/fb_auth_controller.dart';
+import 'package:task_manager/widgets/app_text_field.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -6,7 +11,27 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>  with Helpers{
+  late TextEditingController _emailTextController;
+  late TextEditingController _passwordTextController;
+  late final TextEditingController controller;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _emailTextController = TextEditingController();
+    _passwordTextController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,55 +52,25 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: 'email',
-                  prefixIcon: Icon(Icons.email),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
-                    ),
-                  ),
-                ),
+              AppTextField(
+                hint: 'Email',
+                controller: _emailTextController,
+                maxLength: 30,
               ),
+
               SizedBox(height: 15),
-              TextField(
-                keyboardType: TextInputType.text,
+              AppTextField(
+                hint: 'Password',
+                controller: _passwordTextController,
                 obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'password',
-                  prefixIcon: Icon(Icons.lock),
-                  suffixIcon: Icon(Icons.remove_red_eye),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
-                    ),
-                  ),
-                ),
               ),
+
               SizedBox(height: 25),
               ElevatedButton(
-                onPressed: () async {
-                },
+                onPressed: ()async {
+                    await performSignIn();
+                 // Navigator.pushReplacementNamed(context, '/hi_screen');
+                     },
                 child: Text('login'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
@@ -88,6 +83,36 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
         )
+    );
+  }
+  Future<void> performSignIn() async {
+    if (checkData()) {
+      await signIn();
+    }
+  }
+
+  bool checkData() {
+    if (_emailTextController.text.isNotEmpty &&
+        _passwordTextController.text.isNotEmpty) {
+      return true;
+    }
+    showSnackBar(context: context, content: 'Enter required data!');
+    return false;
+  }
+
+  Future<void> signIn() async {
+    await AppPreferences().save(user: user);
+    bool status = await FbAuthController().signIn(context,
+        email: _emailTextController.text,
+        password: _passwordTextController.text);
+    if (status) {
+      Navigator.pushReplacementNamed(context, '/main_screen');
+    }
+  }
+  User get user {
+    return User(
+      email: _emailTextController.text,
+      name: 'User Name',
     );
   }
 }
