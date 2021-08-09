@@ -19,7 +19,6 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _user = FbAuthController().user;
     _emailTextController = TextEditingController(text: _user.email ?? '');
@@ -29,7 +28,6 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailTextController.dispose();
     _nameTextController.dispose();
     _passwordTextController.dispose();
@@ -41,6 +39,9 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color(0xFF4B53F5)
+        ),
         elevation: 1,
         backgroundColor: Colors.white,
         title: Text(

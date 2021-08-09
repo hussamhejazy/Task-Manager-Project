@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         '/reports_screen':(context)=> ReportsScreen(),
         '/team_screen':(context)=> TeamScreen(),
         '/hi_screen':(context)=> HiScreen(),
+        '/account_screen':(context)=> AccountScreen(),
 
       },
     );
