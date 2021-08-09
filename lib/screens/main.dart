@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/screens/account_screen.dart';
 import 'package:task_manager/auth/create_account_screen.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
 import 'package:task_manager/screens/department_screens/add_departtment_Screen.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/reports_screen':(context)=> ReportsScreen(),
         '/team_screen':(context)=> TeamScreen(),
         '/hi_screen':(context)=> HiScreen(),
+        '/account_screen':(context)=> AccountScreen(),
 
       },
     );

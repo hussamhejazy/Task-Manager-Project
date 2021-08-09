@@ -30,15 +30,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 },
                 leading: Icon(Icons.logout,color:Color(0xFF4B53F5) ),
                 title: Text('Logout'),
-              ), ListTile(
+              ),
+              ListTile(
                 onTap: () async{
-                  await signOut();
+                 await Navigator.pushNamed(context, '/account_screen');
+
                 },
                 leading: Icon(Icons.person_outline,color:Color(0xFF4B53F5) ),
                 title: Text('Account'),
-              ), ListTile(
-                onTap: () async{
-                  await signOut();
+              ),
+              ListTile(
+                onTap: () {
                 },
                 leading: Icon(Icons.language,color:Color(0xFF4B53F5) ,),
                 title: Text('Language'),
@@ -75,6 +77,7 @@ class _SettingScreenState extends State<SettingScreen> {
     await FbAuthController().signOut();
     Navigator.pushReplacementNamed(context, '/login_screen');
   }
+
 }
 
 

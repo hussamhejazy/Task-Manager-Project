@@ -13,6 +13,7 @@ class CreateAccountScreen extends StatefulWidget {
 
 class _CreateAccountScreenState extends State<CreateAccountScreen>
     with Helpers {
+  late TextEditingController _NameTextController;
   late TextEditingController _emailTextController;
   late TextEditingController _passwordTextController;
 
@@ -20,6 +21,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    _NameTextController = TextEditingController();
     _emailTextController = TextEditingController();
     _passwordTextController = TextEditingController();
   }
@@ -27,6 +30,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
   @override
   void dispose() {
     // TODO: implement dispose
+    _NameTextController.dispose();
     _emailTextController.dispose();
     _passwordTextController.dispose();
     super.dispose();
@@ -69,6 +73,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
               ),
             ),
             SizedBox(height: 30),
+            AppTextField(
+              hint: 'Name',
+              controller: _NameTextController,
+              maxLength: 30,
+            ),
+            SizedBox(height: 10),
             AppTextField(
               hint: 'Email',
               controller: _emailTextController,

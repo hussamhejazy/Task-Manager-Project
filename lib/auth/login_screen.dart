@@ -110,7 +110,9 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
         email: _emailTextController.text,
         password: _passwordTextController.text);
     if (status) {
-      Navigator.pushReplacementNamed(context, '/main_screen');
+      Future.delayed(Duration(seconds: 2),(){
+        Navigator.pushReplacementNamed(context, '/main_screen');
+      });
     }
   }
   User get user {
