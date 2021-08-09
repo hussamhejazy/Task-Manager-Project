@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
-import 'package:task_manager/models/Employee.dart';
 import 'package:task_manager/models/Task.dart';
-import 'package:task_manager/preferences/app_preferences.dart';
 import 'package:task_manager/utils/helpers.dart';
 
 class AddTask extends StatefulWidget {
@@ -17,8 +15,6 @@ class _AddTaskState extends State<AddTask> with Helpers {
   TimeOfDay? _time;
   late TextEditingController _titleEditingController;
   late TextEditingController _noteEditingController;
-
-
 
   @override
   void initState() {
@@ -36,7 +32,6 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
   @override
   Widget build(BuildContext context) {
-    Employee employee = AppPreferences().getEmployee();
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color(0xFF4B53F5)),
@@ -48,9 +43,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
         ),
         leading: IconButton(
           onPressed: () {
-            AppPreferences().clearTask();
-            AppPreferences().clearEmployee();
-            Navigator.pushNamed(context, '/task_screen');
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -164,11 +157,11 @@ class _AddTaskState extends State<AddTask> with Helpers {
                 radius: 25,
               ),
               title: Text(
-                (employee == null) ? 'Employee Name' : employee.name,
-                style: TextStyle(fontSize: 16),
+                  'name',
+                  style: TextStyle(fontSize: 16),
               ),
               subtitle: Text(
-                (employee == null) ? 'Email' : employee.email,
+                  'email',
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
               trailing: Icon(
@@ -222,6 +215,9 @@ class _AddTaskState extends State<AddTask> with Helpers {
     );
   }
 
+
+
+
   Future _pickDate(BuildContext context) async {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
@@ -269,39 +265,22 @@ class _AddTaskState extends State<AddTask> with Helpers {
     }
   }
 
-  Future<void> _saveIntoSharedPreferences() async {
-    Task task = Task();
-    task.title = (_titleEditingController.text.isNotEmpty)
-        ? _titleEditingController.text
-        : '';
-    task.date = _getDate;
-    task.time = _getTime();
-    task.note = (_noteEditingController.text.isNotEmpty)
-        ? _noteEditingController.text
-        : '';
-    await AppPreferences().saveTask(task: task);
-  }
 
   Future<void> _selectEmployee() async {
-    _saveIntoSharedPreferences();
     await Navigator.pushNamed(context, '/select_employee_screen');
   }
 
   Future<void> performSave() async {
     if (checkData()) {
       save();
-      await AppPreferences().clearEmployee();
-      await AppPreferences().clearTask();
     }
   }
 
   bool checkData() {
-    Employee employee = AppPreferences().getEmployee();
     if (_titleEditingController.text.isNotEmpty &&
         _noteEditingController.text.isNotEmpty &&
         _date != null &&
-        _time != null &&
-        employee != null) {
+        _time != null) {
       return true;
     }
     showSnackBar(context: context, content: 'Enter required data', error: true);
@@ -311,19 +290,16 @@ class _AddTaskState extends State<AddTask> with Helpers {
   Future<void> save() async {
     bool status = await FbFirestoreController().CreateTask(task: task);
     if (status) {
-      showSnackBar(context: context, content: 'Department Added Successfully');
+      showSnackBar(context: context, content: 'Task Added Successfully');
       clear();
     }
   }
 
   Task get task {
-    Employee employee = AppPreferences().getEmployee();
     Task task = Task();
     task.title = _titleEditingController.text;
     task.date = _getDate;
     task.time = _getTime();
-    task.nameEmployee = employee.name;
-    task.emailEmployee = employee.email;
     task.note = _noteEditingController.text;
     return task;
   }

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
 import 'package:task_manager/models/Employee.dart';
-import 'package:task_manager/models/Task.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
 
 class SelectEmployee extends StatefulWidget {
@@ -84,7 +83,6 @@ class _SelectEmployeeState extends State<SelectEmployee> {
     employee.name = name;
     employee.email = email;
     employee.password = password;
-    await AppPreferences().clearEmployee();
     await AppPreferences().saveEmployee(employee: employee);
     Navigator.pop(context);
   }
