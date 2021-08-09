@@ -36,6 +36,20 @@ class FbAuthController with Helpers {
     }
     return true;
   }
+  Future<bool> createAccount(BuildContext context,
+      {required String email, required String password}) async {
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      await _controlEmailValidation(context, credential: userCredential);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      _controlErrorCodes(context, e);
+    } catch (e) {
+      print('Exception: $e');
+    }
+    return false;
+  }
 
 
   void _controlErrorCodes(
