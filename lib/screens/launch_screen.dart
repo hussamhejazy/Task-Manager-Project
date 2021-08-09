@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/firebase/fb_auth_controller.dart';
-import 'package:task_manager/preferences/app_preferences.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key? key}) : super(key: key);
@@ -19,6 +17,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
       Navigator.pushReplacementNamed(context, route);
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

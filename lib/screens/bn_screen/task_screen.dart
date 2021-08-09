@@ -52,96 +52,9 @@ class _TaskScreenState extends State<TaskScreen>
         body: TabBarView(
           controller: _tabController,
           children: [
-            TaskList(
-              list: [
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 1),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 2),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 1),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0)
-              ],
-              onPressed: () {},
-              status: 0,
-            ),
-            TaskList(
-              list: [
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 1),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 2),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 1),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0)
-              ],
-              onPressed: () {},
-              status: 1,
-            ),
-            TaskList(
-              list: [
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 1),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 2),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 1),
-                Task(
-                    title: 'Payment Method',
-                    deadLine: 'Deadline 20 January ',
-                    status: 0)
-              ],
-              onPressed: () {},
-              status: 2,
-            ),
+            TaskList( status: 0),
+            TaskList( status: 1),
+            TaskList( status: 2),
           ],
         ),
         floatingActionButton: FloatingActionButton(

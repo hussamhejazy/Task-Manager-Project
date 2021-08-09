@@ -19,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _emailTextController = TextEditingController();
     _passwordTextController = TextEditingController();
@@ -27,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailTextController.dispose();
     _passwordTextController.dispose();
     super.dispose();
@@ -69,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
               ElevatedButton(
                 onPressed: ()async {
                     await performSignIn();
-                 // Navigator.pushReplacementNamed(context, '/hi_screen');
                      },
                 child: Text('login'),
                 style: ElevatedButton.styleFrom(

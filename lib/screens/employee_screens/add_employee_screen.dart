@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/firebase/fb_firestore_controller.dart';
+import 'package:task_manager/models/Employee.dart';
+import 'package:task_manager/utils/helpers.dart';
 class AddEmployeeScreen extends StatefulWidget {
   const AddEmployeeScreen({Key? key}) : super(key: key);
 
@@ -7,7 +10,27 @@ class AddEmployeeScreen extends StatefulWidget {
   _AddEmployeeScreenState createState() => _AddEmployeeScreenState();
 }
 
-class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
+class _AddEmployeeScreenState extends State<AddEmployeeScreen> with Helpers{
+
+  late TextEditingController _nameEditingControllertiti;
+  late TextEditingController _emailEditingControllertiti;
+  late TextEditingController _passwordEditingControllertiti;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameEditingControllertiti = TextEditingController();
+    _emailEditingControllertiti= TextEditingController();
+    _passwordEditingControllertiti= TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameEditingControllertiti.dispose();
+    _emailEditingControllertiti.dispose();
+    _passwordEditingControllertiti.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +55,32 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(radius: 50,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: AssetImage('images/profile.png')),
+              TextField(
+                keyboardType: TextInputType.emailAddress,
+                controller: _nameEditingControllertiti,
+                decoration: InputDecoration(
+                  hintText: 'name',
+                  //prefixIcon: Icon(Icons.email),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: 15),
               TextField(
                 keyboardType: TextInputType.emailAddress,
+                controller: _emailEditingControllertiti,
                 decoration: InputDecoration(
                   hintText: 'email',
                   //prefixIcon: Icon(Icons.email),
@@ -59,6 +102,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
               ),
               SizedBox(height: 15),
               TextField(
+                controller: _passwordEditingControllertiti,
                 keyboardType: TextInputType.text,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -80,34 +124,9 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
-              TextField(
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                decoration: InputDecoration(
-                 // prefixIcon: Icon(Icons.class__sharp),
-                  hintText:'Department',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(height: 25),
               ElevatedButton(
-                onPressed: ()  {
-
-                },
+                onPressed: () async => await performSave(),
                 child: Text('Added'),
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
@@ -120,5 +139,43 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
           ),
         ),
     );
+  }
+
+  Future<void> performSave() async{
+    if(checkData()){
+      save();
+    }
+  }
+
+  bool checkData(){
+    if(_nameEditingControllertiti.text.isNotEmpty &&
+        _emailEditingControllertiti.text.isNotEmpty&&
+        _passwordEditingControllertiti.text.isNotEmpty){
+      return true;
+    }
+    showSnackBar(context: context, content: 'Enter required data',error: true);
+    return false;
+  }
+
+  Future<void> save() async{
+    bool status = await FbFirestoreController().CreateEmployee(employee: employee);
+    if (status){
+      showSnackBar(context: context, content: 'Department Added Successfully');
+      cleare();
+    }
+  }
+
+  Employee get employee{
+    Employee employee = Employee();
+    employee.name = _nameEditingControllertiti.text;
+    employee.email = _emailEditingControllertiti.text;
+    employee.password = _passwordEditingControllertiti.text;
+    return employee;
+  }
+
+  void cleare(){
+    _nameEditingControllertiti.text = '';
+    _emailEditingControllertiti.text = '';
+    _passwordEditingControllertiti.text = '';
   }
 }
