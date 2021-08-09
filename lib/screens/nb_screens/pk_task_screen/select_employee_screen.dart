@@ -1,36 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
-class EmployeeScreen extends StatefulWidget {
-  const EmployeeScreen({Key? key}) : super(key: key);
+import 'package:task_manager/models/Employee.dart';
+import 'package:task_manager/models/Task.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
+
+class SelectEmployee extends StatefulWidget {
+  const SelectEmployee({Key? key}) : super(key: key);
+
 
   @override
-  _EmployeeScreenState createState() => _EmployeeScreenState();
+  _SelectEmployeeState createState() => _SelectEmployeeState();
 }
 
-class _EmployeeScreenState extends State<EmployeeScreen> {
-
+class _SelectEmployeeState extends State<SelectEmployee> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-      backgroundColor: Colors.white,
-      iconTheme: IconThemeData(
-        color: Color(0xFF4B53F5)
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+            color: Color(0xFF4B53F5)
+        ),
+        title:Text('Select Employee',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 21,color: Colors.black)
+          ,),
+        elevation: 1,
       ),
-      title:Text('Employees',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 21,color: Colors.black)
-      ,),
-      elevation: 1,
-      actions: [
-          IconButton(onPressed: (){
-            Navigator.pushNamed(context, '/add_employee_screen');
-          }, icon: Icon(Icons.add)
-          ,iconSize: 30,
-          color: Color(0XFF4B53F5),),
-      ],
-    ),
-      body: StreamBuilder<QuerySnapshot>(
+      body:  StreamBuilder<QuerySnapshot>(
           stream: FbFirestoreController().getEmployees(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting){
@@ -54,6 +50,11 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                           child: Icon(Icons.person, color: Color(0XFF4B53F5))),
                       title: Text(data[index].get('name')),
                       subtitle: Text(data[index].get('email')),
+                      onTap: () async => await _select(
+                            name: data[index].get('name'),
+                            email: data[index].get('email'),
+                            password: data[index].get('password')
+                      ),
                     ),
                   );
                 },
@@ -75,6 +76,17 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
 
           }
       ),
-          );
-        }
+    );
+  }
+
+  Future<void> _select({required String name,required String email,required String password}) async{
+    Employee employee = Employee();
+    employee.name = name;
+    employee.email = email;
+    employee.password = password;
+    await AppPreferences().clearEmployee();
+    await AppPreferences().saveEmployee(employee: employee);
+    Navigator.pop(context);
+  }
+
 }

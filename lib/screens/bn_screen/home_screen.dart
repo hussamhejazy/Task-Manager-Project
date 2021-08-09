@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Color(0xFFBEDDFF),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
                   width: 20,

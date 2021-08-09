@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/models/Task.dart';
 
 class RequestsNotification extends StatelessWidget {
-  List<Task> list;
-  Function onPressed;
   final int status;
 
   RequestsNotification(
-      {required this.list, required this.onPressed, required this.status});
+      {required this.status});
 
   @override
   Widget build(BuildContext context) {

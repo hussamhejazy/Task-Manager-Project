@@ -16,10 +16,13 @@ import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_scree
 import 'package:task_manager/screens/report_screen/reports_screen.dart';
 import 'package:task_manager/screens/report_screen/team_screen.dart';
 
+import 'bn_screen/task_screen.dart';
 import 'launch_screen.dart';
+import 'nb_screens/pk_task_screen/select_employee_screen.dart';
 
 void main() async{
  WidgetsFlutterBinding.ensureInitialized();
+ await AppPreferences().initPreferences();
  await Firebase.initializeApp();
  await AppPreferences().initPreferences();
 
@@ -38,6 +41,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/launch_screen':(context)=>LaunchScreen(),
         '/main_screen':(context)=>MainScreen(),
+        '/task_screen':(context)=>TaskScreen(),
         '/login_screen':(context)=>LoginScreen(),
         '/add_task_screen':(context)=>AddTask(),
         '/task_detail_screen':(context)=>TaskDetail(),
@@ -51,6 +55,7 @@ class MyApp extends StatelessWidget {
         '/reports_screen':(context)=> ReportsScreen(),
         '/team_screen':(context)=> TeamScreen(),
         '/hi_screen':(context)=> HiScreen(),
+        '/select_employee_screen':(context)=> SelectEmployee(),
 
       },
     );

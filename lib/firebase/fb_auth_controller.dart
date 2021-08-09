@@ -24,6 +24,7 @@ class FbAuthController with Helpers {
   }
 
   bool get isLoggedIn => _firebaseAuth.currentUser != null;
+
   Future<bool> _controlEmailValidation(BuildContext context,
       {required UserCredential credential}) async {
     if (!credential.user!.emailVerified) {
