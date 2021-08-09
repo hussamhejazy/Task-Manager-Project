@@ -95,24 +95,9 @@ class _NotificationsScreenState extends State<NotificationsScreen>
         body: TabBarView(
           controller: _tabController,
           children: [
-            RequestsNotification(list: [Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 1),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 2),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 1),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0)],onPressed: (){},status: 0,),
-            RequestsNotification(list: [Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 1),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 2),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 1),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0)],onPressed: (){},status: 1,),
-            RequestsNotification(list: [Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 1),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 2),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 1),
-              Task(title: 'Payment Method',deadLine: 'Deadline 20 January ',status: 0)],onPressed: (){},status: 2,),
+            RequestsNotification(status: 0),
+            RequestsNotification(status: 1),
+            RequestsNotification(status: 2),
           ],
         )
     );

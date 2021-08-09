@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
 
 class LaunchScreen extends StatefulWidget {
   const LaunchScreen({Key? key}) : super(key: key);
@@ -13,8 +14,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 3), () {
-      //String route = FbAuthController().isLoggedIn ? '/main_screen' : '/login_screen';
-      Navigator.pushReplacementNamed(context, '/login_screen');
+      String route = AppPreferences().loggedIn ? '/main_screen' : '/login_screen';
+      Navigator.pushReplacementNamed(context, route);
     });
   }
 
