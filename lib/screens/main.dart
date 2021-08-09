@@ -1,25 +1,28 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/screens/add_departtment_Screen.dart';
-import 'package:task_manager/screens/add_employee_screen.dart';
-import 'package:task_manager/screens/attendance_screen.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/screens/department_screens/add_departtment_Screen.dart';
+import 'package:task_manager/screens/department_screens/department_screen.dart';
+import 'package:task_manager/screens/employee_screens/add_employee_screen.dart';
+import 'package:task_manager/screens/employee_screens/employee_screen.dart';
+import 'package:task_manager/screens/report_screen/attendance_screen.dart';
 import 'package:task_manager/screens/create_leave_screen.dart';
-import 'package:task_manager/screens/department_screen.dart';
-import 'package:task_manager/screens/employee_screen.dart';
 import 'package:task_manager/screens/hi_screen.dart';
-import 'package:task_manager/screens/leave_screen.dart';
+import 'package:task_manager/screens/report_screen/leave_screen.dart';
 import 'package:task_manager/screens/login_screen.dart';
 import 'package:task_manager/screens/main_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
-import 'package:task_manager/screens/reports_screen.dart';
-import 'package:task_manager/screens/team_screen.dart';
+import 'package:task_manager/screens/report_screen/reports_screen.dart';
+import 'package:task_manager/screens/report_screen/team_screen.dart';
 
 import 'launch_screen.dart';
 
 void main() async{
  WidgetsFlutterBinding.ensureInitialized();
  await Firebase.initializeApp();
+ await AppPreferences().initPreferences();
+
  runApp(const MyApp());
 }
 
