@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
 import 'package:task_manager/models/Task.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
 
 class TaskList extends StatelessWidget {
 
@@ -31,9 +33,19 @@ class TaskList extends StatelessWidget {
                         child: ListTile(
                           leading: getIcon(data[index].get('status')),
                           title: Text(data[index].get('title')),
-                          subtitle: Text(data[index].get('deadLine')),
+                          subtitle: Text('${data[index].get('date')}   ${data[index].get('time')}'),
                           onTap: (){
-                            Navigator.pushNamed(context, '/task_detail_screen');
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> TaskDetail(
+                                saveIntoSharedPreferences(
+                                  path: data[index].id,
+                                  title: data[index].get('title'),
+                                  date: data[index].get('date'),
+                                  time: data[index].get('time'),
+                                  employeeName: data[index].get('nameEmployee'),
+                                  employeeEmail: data[index].get('emailEmployee'),
+                                  note: data[index].get('note')
+                                )
+                            )));
                           },
                         ),
                       ),
@@ -45,7 +57,7 @@ class TaskList extends StatelessWidget {
                 }
                 ,itemCount: data.length,
               separatorBuilder: (context,index){
-                  return Divider();
+                  return SizedBox();
               },);
             }else{
               return Center(
@@ -71,6 +83,27 @@ class TaskList extends StatelessWidget {
       case 2: return Icon(Icons.check,color:Color(0xFF4B53F5));
     }
     return Icon(Icons.arrow_forward_ios_rounded,color: Color(0xFF4B53F5));
+  }
+
+  Task saveIntoSharedPreferences({
+    required String path,
+    required String title,
+    required String date,
+    required String time,
+    required String employeeName,
+    required String employeeEmail,
+    required String note,
+  }){
+    Task task = Task();
+    task.path = path;
+    task.title = title;
+    task.date = date;
+    task.time = time;
+    task.nameEmployee = employeeName;
+    task.emailEmployee = employeeEmail;
+    task.note = note;
+
+    return task;
   }
 }
 

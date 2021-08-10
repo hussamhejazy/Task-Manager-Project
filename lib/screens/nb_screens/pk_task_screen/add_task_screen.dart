@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
-import 'package:task_manager/models/Employee.dart';
 import 'package:task_manager/models/Task.dart';
-import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/screens/bn_screen/task_screen.dart';
+import 'package:task_manager/screens/nb_screens/pk_task_screen/select_employee_screen.dart';
 import 'package:task_manager/utils/helpers.dart';
 
 class AddTask extends StatefulWidget {
-  const AddTask({Key? key}) : super(key: key);
+  Task _task;
+  AddTask(this._task);
 
   @override
-  _AddTaskState createState() => _AddTaskState();
+  _AddTaskState createState() => _AddTaskState(_task);
 }
 
 class _AddTaskState extends State<AddTask> with Helpers {
+  Task _task;
+  _AddTaskState(this._task);
   DateTime? _date;
   TimeOfDay? _time;
   late TextEditingController _titleEditingController;
   late TextEditingController _noteEditingController;
-
-
 
   @override
   void initState() {
@@ -36,7 +37,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
   @override
   Widget build(BuildContext context) {
-    Employee employee = AppPreferences().getEmployee();
+    fillField();
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color(0xFF4B53F5)),
@@ -48,9 +49,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
         ),
         leading: IconButton(
           onPressed: () {
-            AppPreferences().clearTask();
-            AppPreferences().clearEmployee();
-            Navigator.pushNamed(context, '/task_screen');
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>TaskScreen()));
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -164,11 +163,11 @@ class _AddTaskState extends State<AddTask> with Helpers {
                 radius: 25,
               ),
               title: Text(
-                (employee == null) ? 'Employee Name' : employee.name,
-                style: TextStyle(fontSize: 16),
+                  _task.nameEmployee,
+                  style: TextStyle(fontSize: 16),
               ),
               subtitle: Text(
-                (employee == null) ? 'Email' : employee.email,
+                _task.emailEmployee,
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
               trailing: Icon(
@@ -222,7 +221,12 @@ class _AddTaskState extends State<AddTask> with Helpers {
     );
   }
 
+
+
+
   Future _pickDate(BuildContext context) async {
+    _task.title = _titleEditingController.text;
+    _task.note = _noteEditingController.text;
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
@@ -234,14 +238,15 @@ class _AddTaskState extends State<AddTask> with Helpers {
     if (newDate == null) return;
 
     setState(() => _date = newDate);
-
     return _date;
   }
 
   String get _getDate =>
-      (_date == null) ? 'Date' : '${_date!.year}/${_date!.month}/${_date!.day}';
+      (_date == null) ? _task.date : '${_date!.year}/${_date!.month}/${_date!.day}';
 
   Future _pickTime(BuildContext context) async {
+    _task.title = _titleEditingController.text;
+    _task.note = _noteEditingController.text;
     final initialTime = TimeOfDay(hour: 9, minute: 0);
     final newTime = await showTimePicker(
       context: context,
@@ -257,7 +262,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
   String _getTime() {
     if (_time == null) {
-      return 'Time';
+      return _task.time;
     } else {
       final h = _time!.hour.toString().padLeft(2, '0');
       final m = _time!.minute.toString().padLeft(2, '0');
@@ -269,39 +274,25 @@ class _AddTaskState extends State<AddTask> with Helpers {
     }
   }
 
-  Future<void> _saveIntoSharedPreferences() async {
-    Task task = Task();
-    task.title = (_titleEditingController.text.isNotEmpty)
-        ? _titleEditingController.text
-        : '';
-    task.date = _getDate;
-    task.time = _getTime();
-    task.note = (_noteEditingController.text.isNotEmpty)
-        ? _noteEditingController.text
-        : '';
-    await AppPreferences().saveTask(task: task);
-  }
 
   Future<void> _selectEmployee() async {
-    _saveIntoSharedPreferences();
-    await Navigator.pushNamed(context, '/select_employee_screen');
+    await _goScreen();
   }
 
   Future<void> performSave() async {
     if (checkData()) {
       save();
-      await AppPreferences().clearEmployee();
-      await AppPreferences().clearTask();
     }
   }
 
   bool checkData() {
-    Employee employee = AppPreferences().getEmployee();
     if (_titleEditingController.text.isNotEmpty &&
         _noteEditingController.text.isNotEmpty &&
-        _date != null &&
-        _time != null &&
-        employee != null) {
+        _date != 'Date' &&
+        _time != 'Time' &&
+    _task.nameEmployee != 'Employee Name'&&
+        _task.emailEmployee != 'Email'
+    ) {
       return true;
     }
     showSnackBar(context: context, content: 'Enter required data', error: true);
@@ -311,24 +302,39 @@ class _AddTaskState extends State<AddTask> with Helpers {
   Future<void> save() async {
     bool status = await FbFirestoreController().CreateTask(task: task);
     if (status) {
-      showSnackBar(context: context, content: 'Department Added Successfully');
+      showSnackBar(context: context, content: 'Task Added Successfully');
       clear();
     }
   }
 
   Task get task {
-    Employee employee = AppPreferences().getEmployee();
     Task task = Task();
     task.title = _titleEditingController.text;
     task.date = _getDate;
+    task.nameEmployee = _task.nameEmployee;
+    task.emailEmployee = _task.emailEmployee;
     task.time = _getTime();
-    task.nameEmployee = employee.name;
-    task.emailEmployee = employee.email;
     task.note = _noteEditingController.text;
     return task;
   }
 
   void clear() {
-    Navigator.pop(context);
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>TaskScreen()));
+  }
+
+  void fillField(){
+    _titleEditingController.text = _task.title;
+    _noteEditingController.text = _task.note;
+  }
+
+  Future<void> _goScreen()async{
+    Task task = Task();
+    task.title = _titleEditingController.text;
+    task.date = _getDate;
+    task.time = _getTime();
+    task.nameEmployee = _task.nameEmployee;
+    task.emailEmployee = _task.emailEmployee;
+    task.note = _noteEditingController.text;
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectEmployee(task)));
   }
 }

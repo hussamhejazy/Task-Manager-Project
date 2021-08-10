@@ -1,6 +1,7 @@
 import 'Employee.dart';
 
 class Task{
+  late String path;
    late String title;
    //deadLine
    late String date;
@@ -24,6 +25,7 @@ class Task{
      time = map['time'];
      nameEmployee = map['nameEmployee'];
      emailEmployee = map['emailEmployee'];
+     note = map['note'];
      status = map['status'];
    }
 
@@ -34,6 +36,7 @@ class Task{
      map['time'] = time;
      map['nameEmployee'] = nameEmployee;
      map['emailEmployee'] = emailEmployee;
+     map['note'] = note;
      map['status'] = status;
      return map;
    }

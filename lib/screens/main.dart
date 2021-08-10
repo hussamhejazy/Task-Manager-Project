@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/auth/login_screen.dart';
 import 'package:task_manager/screens/account_screen.dart';
-import 'package:task_manager/auth/create_account_screen.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
 import 'package:task_manager/screens/department_screens/add_departtment_Screen.dart';
 import 'package:task_manager/screens/department_screens/department_screen.dart';
@@ -17,8 +16,6 @@ import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.d
 import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
 import 'package:task_manager/screens/report_screen/reports_screen.dart';
 import 'package:task_manager/screens/report_screen/team_screen.dart';
-
-import 'bn_screen/task_screen.dart';
 import 'launch_screen.dart';
 import 'nb_screens/pk_task_screen/select_employee_screen.dart';
 
@@ -43,8 +40,6 @@ class MyApp extends StatelessWidget {
         '/launch_screen':(context)=>LaunchScreen(),
         '/main_screen':(context)=>MainScreen(),
         '/login_screen':(context)=>LoginScreen(),
-        '/add_task_screen':(context)=>AddTask(),
-        '/task_detail_screen':(context)=>TaskDetail(),
         '/attendance_screen':(context)=>Attendance(),
         '/leave_screen':(context)=>LeaveScreen(),
         '/create_leave_screen':(context)=>CreateLeaveScreen(),
