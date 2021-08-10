@@ -2,17 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
 import 'package:task_manager/models/Employee.dart';
-import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/models/Task.dart';
+
+import 'add_task_screen.dart';
 
 class SelectEmployee extends StatefulWidget {
-  const SelectEmployee({Key? key}) : super(key: key);
-
+  Task _task;
+  SelectEmployee(this._task);
 
   @override
-  _SelectEmployeeState createState() => _SelectEmployeeState();
+  _SelectEmployeeState createState() => _SelectEmployeeState(_task,_task.nameEmployee,_task.emailEmployee);
 }
 
 class _SelectEmployeeState extends State<SelectEmployee> {
+  Task _task;
+  String _employeeName ;
+  String _employeeEmail ;
+  _SelectEmployeeState(this._task,this._employeeName,this._employeeEmail);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +31,14 @@ class _SelectEmployeeState extends State<SelectEmployee> {
         title:Text('Select Employee',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 21,color: Colors.black)
           ,),
         elevation: 1,
+        leading: IconButton(onPressed: (){
+          _goScreen(
+            name: _employeeName,
+            email: _employeeEmail
+          );
+        },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
       ),
       body:  StreamBuilder<QuerySnapshot>(
           stream: FbFirestoreController().getEmployees(),
@@ -52,7 +67,6 @@ class _SelectEmployeeState extends State<SelectEmployee> {
                       onTap: () async => await _select(
                             name: data[index].get('name'),
                             email: data[index].get('email'),
-                            password: data[index].get('password')
                       ),
                     ),
                   );
@@ -78,13 +92,25 @@ class _SelectEmployeeState extends State<SelectEmployee> {
     );
   }
 
-  Future<void> _select({required String name,required String email,required String password}) async{
-    Employee employee = Employee();
-    employee.name = name;
-    employee.email = email;
-    employee.password = password;
-    await AppPreferences().saveEmployee(employee: employee);
-    Navigator.pop(context);
+  Future<void> _select({required String name,required String email}) async{
+    _employeeName = name;
+    _employeeEmail = email;
+   await _goScreen(
+     name: _employeeName,
+     email: _employeeEmail
+   );
+  }
+
+
+  Future<void> _goScreen({required String name,required String email})async{
+    Task task = Task();
+    task.title = _task.title;
+    task.date = _task.date;
+    task.time = _task.time;
+    task.nameEmployee = name;
+    task.emailEmployee = email;
+    task.note = _task.note;
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(task)));
   }
 
 }

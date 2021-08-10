@@ -43,8 +43,7 @@ class TaskList extends StatelessWidget {
                                   time: data[index].get('time'),
                                   employeeName: data[index].get('nameEmployee'),
                                   employeeEmail: data[index].get('emailEmployee'),
-                                  note: 'hussam zyad hejazy',
-                                  // data[index].get('note')
+                                  note: data[index].get('note')
                                 )
                             )));
                           },

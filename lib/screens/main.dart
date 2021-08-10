@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         '/launch_screen':(context)=>LaunchScreen(),
         '/main_screen':(context)=>MainScreen(),
         '/login_screen':(context)=>LoginScreen(),
-        '/add_task_screen':(context)=>AddTask(),
         '/attendance_screen':(context)=>Attendance(),
         '/leave_screen':(context)=>LeaveScreen(),
         '/create_leave_screen':(context)=>CreateLeaveScreen(),
@@ -52,7 +51,6 @@ class MyApp extends StatelessWidget {
         '/team_screen':(context)=> TeamScreen(),
         '/hi_screen':(context)=> HiScreen(),
         '/account_screen':(context)=> AccountScreen(),
-        '/select_employee_screen':(context)=> SelectEmployee(),
 
       },
     );
