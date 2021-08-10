@@ -52,12 +52,12 @@ class TaskList extends StatelessWidget {
                     );
                   }
                   else{
-                    return Divider();
+                    return SizedBox();
                   }
                 }
                 ,itemCount: data.length,
               separatorBuilder: (context,index){
-                  return Divider();
+                  return SizedBox();
               },);
             }else{
               return Center(
