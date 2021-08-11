@@ -5,6 +5,8 @@ import 'package:task_manager/screens/bn_screen/task_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/select_employee_screen.dart';
 import 'package:task_manager/utils/helpers.dart';
 
+import '../../main_screen.dart';
+
 class AddTask extends StatefulWidget {
   Task _task;
   AddTask(this._task);
@@ -49,7 +51,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>TaskScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>MainScreen()));
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -319,7 +321,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
   }
 
   void clear() {
-    Navigator.push(context,MaterialPageRoute(builder: (context)=>TaskScreen()));
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>MainScreen()));
   }
 
   void fillField(){
