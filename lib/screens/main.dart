@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/auth/create_account_screen.dart';
 import 'package:task_manager/auth/login_screen.dart';
 import 'package:task_manager/screens/account_screen.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
@@ -12,12 +13,9 @@ import 'package:task_manager/screens/create_leave_screen.dart';
 import 'package:task_manager/screens/hi_screen.dart';
 import 'package:task_manager/screens/report_screen/leave_screen.dart';
 import 'package:task_manager/screens/main_screen.dart';
-import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
-import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
 import 'package:task_manager/screens/report_screen/reports_screen.dart';
 import 'package:task_manager/screens/report_screen/team_screen.dart';
 import 'launch_screen.dart';
-import 'nb_screens/pk_task_screen/select_employee_screen.dart';
 
 void main() async{
  WidgetsFlutterBinding.ensureInitialized();
