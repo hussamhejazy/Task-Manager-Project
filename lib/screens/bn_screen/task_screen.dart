@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/models/Employee.dart';
 import 'package:task_manager/models/Task.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/taskList.dart';
 
 class TaskScreen extends StatefulWidget {
@@ -15,14 +18,12 @@ class _TaskScreenState extends State<TaskScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _tabController.dispose();
     super.dispose();
   }
@@ -59,9 +60,17 @@ class _TaskScreenState extends State<TaskScreen>
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/add_task_screen');
+            Task _task = Task();
+            _task.title = '';
+            _task.date = 'Date';
+            _task.time = 'Time';
+            _task.nameEmployee = 'Employee Name';
+            _task.emailEmployee = 'Email';
+            _task.note = '';
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(_task)));
           },
           child: Icon(Icons.add),
         ));
   }
+
 }

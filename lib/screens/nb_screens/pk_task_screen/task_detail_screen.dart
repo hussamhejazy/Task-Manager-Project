@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/firebase/fb_firestore_controller.dart';
+import 'package:task_manager/models/Task.dart';
+import 'package:task_manager/preferences/app_preferences.dart';
+import 'package:task_manager/utils/helpers.dart';
+
+
 
 class TaskDetail extends StatefulWidget {
+  Task _task;
+  TaskDetail(this._task);
   @override
-  _TaskDetailState createState() => _TaskDetailState();
+  _TaskDetailState createState() => _TaskDetailState(_task);
 }
 
-class _TaskDetailState extends State<TaskDetail> {
+class _TaskDetailState extends State<TaskDetail> with Helpers{
+
+
+  Task _task;
   int _countState = 0;
   String _nameState = 'Idel';
+  _TaskDetailState(this._task);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +109,7 @@ class _TaskDetailState extends State<TaskDetail> {
               fontSize: 14,
               color: Colors.grey,
             ),),
-            Text('Create new payment method yo our apps',style: TextStyle(
+            Text(_task.title,style: TextStyle(
               fontSize: 16,
               color: Colors.black,
             ),),
@@ -104,7 +118,7 @@ class _TaskDetailState extends State<TaskDetail> {
               fontSize: 14,
               color: Colors.grey,
             ),),
-            Text('20 jun 2021',style: TextStyle(
+            Text('${_task.date}  ${_task.time}',style: TextStyle(
               fontSize: 16,
               color: Colors.black,
             ),),
@@ -115,28 +129,24 @@ class _TaskDetailState extends State<TaskDetail> {
             ),),
             ListTile(
               contentPadding: EdgeInsets.all(0),
-              leading: CircleAvatar(
-                backgroundColor: Color(0xFF4B53F5),
-                //backgroundImage: ,
-                radius: 25,
-              ),
-              title: Text('hussam hejazy',style: TextStyle(fontSize: 16),),
-              subtitle: Text('Department',style: TextStyle(fontSize: 14,color: Colors.grey),),
-              trailing: IconButton(onPressed: (){
-                //todo// open employees page to select
-              },icon:Icon(Icons.arrow_forward,color: Color(0xFF4B53F5),),),
+              leading: Icon(Icons.person,color: Color(0xFF4B53F5),),
+              title: Text(_task.nameEmployee,style: TextStyle(fontSize: 16),),
+              subtitle: Text(_task.emailEmployee,style: TextStyle(fontSize: 14,color: Colors.grey),),
             ),
             SizedBox(height: 30,),
             Text('Note',style: TextStyle(
               fontSize: 14,
               color: Colors.grey,
             ),),
-            Text('User need new specific payment method to suscribe our apps',style: TextStyle(
+            Text(_task.note,style: TextStyle(
               fontSize: 16,
               color: Colors.black,
             ),),
             SizedBox(height: 30,),
-            ElevatedButton(onPressed: (){}, child: Text('Save',style: TextStyle(
+            ElevatedButton(onPressed: () async => await update(
+              status: _countState,
+            )
+              , child: Text('Save',style: TextStyle(
               fontSize: 16,
               color: Colors.white,
             ),),
@@ -150,5 +160,22 @@ class _TaskDetailState extends State<TaskDetail> {
         ),
       ),
     );
+  }
+
+  Future<void> update ({
+
+    required int status,
+  }) async{
+    _task.status = status;
+    await updateTask(path: _task.path, task: _task);
+    Navigator.pop(context);
+
+  }
+
+  Future<void> updateTask({required String path,required Task task}) async {
+    bool status = await FbFirestoreController().updateTask(path: path,task: task);
+    if (status) {
+      showSnackBar(context: context, content: 'Task Updated Successfully');
+    }
   }
 }

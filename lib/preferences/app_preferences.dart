@@ -39,6 +39,7 @@ class AppPreferences {
   }
 
   Future<void> saveTask({required Task task}) async {
+    await _sharedPreferences.setString('pathTask', task.path);
     await _sharedPreferences.setString('titleTask', task.title);
     await _sharedPreferences.setString('dateTask', task.date);
     await _sharedPreferences.setString('timeTask', task.time);
@@ -46,6 +47,7 @@ class AppPreferences {
   }
   Task getTask(){
     Task task = Task();
+    task.path =_sharedPreferences.getString('pathTask')!;
     task.title =_sharedPreferences.getString('titleTask')!;
     task.date =_sharedPreferences.getString('dateTask')!;
     task.time =_sharedPreferences.getString('timeTask')!;
@@ -53,7 +55,8 @@ class AppPreferences {
     return task;
   }
   Future<bool> clearTask() async {
-    return await _sharedPreferences.remove('titleTask')&&
+    return await _sharedPreferences.remove('path')&&
+        await _sharedPreferences.remove('titleTask')&&
         await _sharedPreferences.remove('dateTask')&&
         await _sharedPreferences.remove('timeTask')&&
         await _sharedPreferences.remove('noteTask');
