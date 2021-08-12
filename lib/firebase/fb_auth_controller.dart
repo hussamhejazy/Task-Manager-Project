@@ -51,11 +51,11 @@ class FbAuthController with Helpers {
   User get user => _firebaseAuth.currentUser!;
 
   Future<bool> updateProfile(BuildContext context,
-      {required String email, required String name, String? password}) async {
+      {required String email, required String name,required String password}) async {
     try {
       await updateEmail(context, email: email);
       await updateDisplayName(name: name);
-      await updatePassword(context);
+      await updatePassword(context,password: password);
       return true;
     } on FirebaseAuthException catch (e) {
       _controlErrorCodes(context, e);
@@ -66,7 +66,7 @@ class FbAuthController with Helpers {
   }
 
   Future<void> updatePassword(BuildContext context, {String? password}) async {
-    if(password != null && password.isNotEmpty) {
+    if(password != null) {
       await _firebaseAuth.currentUser!.updatePassword(password);
     }
   }
