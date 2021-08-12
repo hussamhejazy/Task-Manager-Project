@@ -52,7 +52,6 @@ class MyApp extends StatelessWidget {
         '/account_screen':(context)=> AccountScreen(),
         '/create_account_screen':(context)=> CreateAccountScreen(),
         '/forget_password_screen':(context)=> ForgetPasswordScreen(),
-
       },
     );
   }
