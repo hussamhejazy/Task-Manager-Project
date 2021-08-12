@@ -19,7 +19,6 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _user = FbAuthController().user;
     _emailTextController = TextEditingController(text: _user.email ?? '');
@@ -29,7 +28,6 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailTextController.dispose();
     _nameTextController.dispose();
     _passwordTextController.dispose();
@@ -125,7 +123,9 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   bool checkData() {
     if (_nameTextController.text.isNotEmpty &&
-        _emailTextController.text.isNotEmpty) {
+        _emailTextController.text.isNotEmpty &&
+        _passwordTextController.text.isNotEmpty
+    ) {
       return true;
     }
     showSnackBar(context: context, content: 'Enter required data');
@@ -133,7 +133,8 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
   }
 
   Future<void> updateProfile() async {
-    bool updated = await FbAuthController().updateProfile(context,
+    bool updated = await FbAuthController().updateProfile(
+        context,
         email: _emailTextController.text.trim(),
         name: _nameTextController.text.trimRight().trimLeft(),
         password: _passwordTextController.text);
