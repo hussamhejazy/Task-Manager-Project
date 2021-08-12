@@ -33,8 +33,9 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 1,
+        elevation: 0,
         backgroundColor: Colors.white,
         title: Text(
           'LOGIN',
@@ -44,6 +45,8 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
             fontSize: 21,
           ),
         ),
+        centerTitle: true,
+        leading: SizedBox(),
       ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),

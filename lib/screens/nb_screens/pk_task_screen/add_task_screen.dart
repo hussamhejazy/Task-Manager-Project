@@ -8,15 +8,17 @@ import '../../main_screen.dart';
 
 class AddTask extends StatefulWidget {
   Task _task;
-  AddTask(this._task);
+  int _responsive ;
+  AddTask(this._task,this._responsive);
 
   @override
-  _AddTaskState createState() => _AddTaskState(_task);
+  _AddTaskState createState() => _AddTaskState(_task,_responsive);
 }
 
 class _AddTaskState extends State<AddTask> with Helpers {
   Task _task;
-  _AddTaskState(this._task);
+  int _responsive ;
+  _AddTaskState(this._task,this._responsive);
   DateTime? _date;
   TimeOfDay? _time;
   late TextEditingController _noteEditingController;
@@ -41,13 +43,13 @@ class _AddTaskState extends State<AddTask> with Helpers {
         iconTheme: const IconThemeData(color: Color(0xFF4B53F5)),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const Text(
-          "Add Task",
+        title: Text(
+          (_responsive == 0)?'Add Task':'Edit Task',
           style: TextStyle(color: Colors.black),
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>MainScreen()));
+            Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>MainScreen()));
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -93,7 +95,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _getDate,
+                            (_responsive == 0)?_getDate:_task.date,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.black.withOpacity(0.9)),
@@ -123,7 +125,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            _getTime(),
+                            (_responsive == 0)?_getTime():_task.time,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.black.withOpacity(0.9)),
@@ -205,9 +207,9 @@ class _AddTaskState extends State<AddTask> with Helpers {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: () async => await performSave(),
+              onPressed: () async => await (_responsive == 0)?performSave():performUpdate(),
               child: Text(
-                'Send',
+                (_responsive == 0)?'Send':'Edit',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -284,6 +286,11 @@ class _AddTaskState extends State<AddTask> with Helpers {
       save();
     }
   }
+  Future<void> performUpdate() async {
+    if (checkData()) {
+      update();
+    }
+  }
 
   bool checkData() {
     if (_task.title!= 'Select Task' &&
@@ -306,20 +313,27 @@ class _AddTaskState extends State<AddTask> with Helpers {
       clear();
     }
   }
+  Future<void> update() async {
+    bool status = await FbFirestoreController().updateTask(path:_task.path, task: task);
+    if (status) {
+      showSnackBar(context: context, content: 'Task Update Successfully');
+      clear();
+    }
+  }
 
   Task get task {
     Task task = Task();
     task.title = _task.title;
     task.date = _getDate;
+    task.time = _getTime();
     task.nameEmployee = _task.nameEmployee;
     task.emailEmployee = _task.emailEmployee;
-    task.time = _getTime();
     task.note = _noteEditingController.text;
     return task;
   }
 
   void clear() {
-    Navigator.push(context,MaterialPageRoute(builder: (context)=>MainScreen()));
+    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>MainScreen()));
   }
 
   void fillField(){
@@ -328,23 +342,25 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
   Future<void> _goScreenDepartment()async{
     Task task = Task();
+    task.path = _task.path;
     task.title = _task.title;
-    task.date = _getDate;
-    task.time = _getTime();
+    task.date = (_responsive == 0)?_getDate:_task.date;
+    task.time = (_responsive == 0)?_getTime():_task.time;
     task.nameEmployee = _task.nameEmployee;
     task.emailEmployee = _task.emailEmployee;
     task.note = _noteEditingController.text;
-    await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectDepartmentScreen(task)));
+    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelectDepartmentScreen(task,_responsive)));
   }
 
   Future<void> _goScreenDuty()async{
     Task task = Task();
+    task.path = _task.path;
     task.title = _task.title;
-    task.date = _getDate;
-    task.time = _getTime();
+    task.date = (_responsive == 0)?_getDate:_task.date;
+    task.time = (_responsive == 0)?_getTime():_task.time;
     task.nameEmployee = _task.nameEmployee;
     task.emailEmployee = _task.emailEmployee;
     task.note = _noteEditingController.text;
-    await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectDutyScreen(task)));
+    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelectDutyScreen(task,_responsive)));
   }
 }

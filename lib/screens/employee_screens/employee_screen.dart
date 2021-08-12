@@ -31,7 +31,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => AddEmployeeScreen(_employee, 0)));
@@ -137,7 +137,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
     employee.email = email;
     employee.password = '';
     employee.department = department;
-    await Navigator.push(
+    await Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) => AddEmployeeScreen(employee, 1)));

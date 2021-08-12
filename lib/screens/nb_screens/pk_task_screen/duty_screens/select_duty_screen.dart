@@ -9,21 +9,24 @@ import '../add_task_screen.dart';
 class SelectDutyScreen extends StatefulWidget {
 
   Task _task;
+  int _responsive;
 
-  SelectDutyScreen(this._task);
+  SelectDutyScreen(this._task,this._responsive);
 
   @override
-  _SelectDutyScreenState createState() => _SelectDutyScreenState(_task,_task.title);
+  _SelectDutyScreenState createState() => _SelectDutyScreenState(_task,_task.title,_responsive);
 }
 
 class _SelectDutyScreenState extends State<SelectDutyScreen> {
   Task _task;
   String _title;
-  _SelectDutyScreenState(this._task,this._title);
+  int _responsive;
+  _SelectDutyScreenState(this._task,this._title,this._responsive);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
@@ -109,14 +112,8 @@ class _SelectDutyScreenState extends State<SelectDutyScreen> {
 
 
   Future<void> _goScreen({required String title})async{
-    Task task = Task();
-    task.title = title;
-    task.date = _task.date;
-    task.time = _task.time;
-    task.nameEmployee = _task.nameEmployee;
-    task.emailEmployee = _task.emailEmployee;
-    task.note = _task.note;
-    await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(task)));
+    _task.title = title;
+    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddTask(_task,_responsive)));
   }
 
   Future<void> performDelete({required String path})async{

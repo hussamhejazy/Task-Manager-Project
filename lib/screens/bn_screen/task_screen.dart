@@ -65,7 +65,7 @@ class _TaskScreenState extends State<TaskScreen>
             _task.nameEmployee = 'Employee Name';
             _task.emailEmployee = 'Email';
             _task.note = '';
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(_task)));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(_task,0)));
           },
           child: Icon(Icons.add),
         ));

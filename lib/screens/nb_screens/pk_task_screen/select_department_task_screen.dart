@@ -6,15 +6,17 @@ import 'package:task_manager/screens/nb_screens/pk_task_screen/select_employee_s
 
 class SelectDepartmentScreen extends StatefulWidget {
   Task _task;
-  SelectDepartmentScreen(this._task);
+  int _responsive;
+  SelectDepartmentScreen(this._task,this._responsive);
 
   @override
-  _SelectDepartmentScreenState createState() => _SelectDepartmentScreenState(_task);
+  _SelectDepartmentScreenState createState() => _SelectDepartmentScreenState(_task,_responsive);
 }
 
 class _SelectDepartmentScreenState extends State<SelectDepartmentScreen> {
   Task _task;
-  _SelectDepartmentScreenState(this._task);
+  int _responsive;
+  _SelectDepartmentScreenState(this._task,this._responsive);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +87,7 @@ class _SelectDepartmentScreenState extends State<SelectDepartmentScreen> {
 
 
   Future<void> _openToSelectEmployee({required String title}) async{
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectEmployee(_task,title)));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SelectEmployee(_task,title,_responsive)));
 
   }
 }

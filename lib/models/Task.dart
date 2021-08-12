@@ -1,7 +1,7 @@
 import 'Employee.dart';
 
 class Task{
-  late String path;
+  late String path = '';
    late String title;
    //deadLine
    late String date;

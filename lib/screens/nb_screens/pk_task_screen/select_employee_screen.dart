@@ -8,18 +8,20 @@ import 'add_task_screen.dart';
 class SelectEmployee extends StatefulWidget {
   Task _task;
   String _titleDepartment;
-  SelectEmployee(this._task,this._titleDepartment);
+  int _responsive;
+  SelectEmployee(this._task,this._titleDepartment,this._responsive);
 
   @override
-  _SelectEmployeeState createState() => _SelectEmployeeState(_task,_task.nameEmployee,_task.emailEmployee,_titleDepartment);
+  _SelectEmployeeState createState() => _SelectEmployeeState(_task,_task.nameEmployee,_task.emailEmployee,_titleDepartment,_responsive);
 }
 
 class _SelectEmployeeState extends State<SelectEmployee> {
+  int _responsive;
   Task _task;
   String _employeeName ;
   String _employeeEmail ;
   String _titleDepartment;
-  _SelectEmployeeState(this._task,this._employeeName,this._employeeEmail,this._titleDepartment);
+  _SelectEmployeeState(this._task,this._employeeName,this._employeeEmail,this._titleDepartment,this._responsive);
 
   @override
   Widget build(BuildContext context) {
@@ -109,14 +111,9 @@ class _SelectEmployeeState extends State<SelectEmployee> {
 
 
   Future<void> _goScreen({required String name,required String email})async{
-    Task task = Task();
-    task.title = _task.title;
-    task.date = _task.date;
-    task.time = _task.time;
-    task.nameEmployee = name;
-    task.emailEmployee = email;
-    task.note = _task.note;
-    await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(task)));
+    _task.nameEmployee = name;
+    _task.emailEmployee = email;
+    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>AddTask(_task,_responsive)));
   }
 
 }

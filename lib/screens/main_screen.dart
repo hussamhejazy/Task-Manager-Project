@@ -30,6 +30,8 @@ class _MainScreenState extends State<MainScreen> {
         color: Colors.black
       ),
       ),
+        centerTitle: true,
+        leading: SizedBox(),
         elevation:0,
         backgroundColor: Colors.white,
           ),
