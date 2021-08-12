@@ -76,10 +76,30 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
                   ),
                 ),
               ),
+
               SizedBox(height: 25),
-              TextButton(
-                onPressed: () => Navigator.pushNamed(context, '/create_account_screen'),
-                child: Text('CREATE ACCOUNT'),
+              SizedBox(
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/create_account_screen'),
+                      child: Text('CREATE ACCOUNT'),
+                    ),
+                    VerticalDivider(
+                      thickness: 1,
+                      indent: 8,
+                      endIndent: 8,
+                      color: Colors.grey.shade500,
+                      width: 1,
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/forget_password_screen'),
+                      child: Text('FORGET PASSWORD?'),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

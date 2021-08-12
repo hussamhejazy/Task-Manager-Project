@@ -44,21 +44,3 @@ class _HiScreenState extends State<HiScreen> {
   }
 }
 
-/*
-*
-*  return Scaffold(
-      backgroundColor: Color(0XFFDBDDFF),
-      body: Center(
-        child: Column(
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundImage:
-              NetworkImage('images/true.png'),
-              backgroundColor: Color(0XFF00DF1A),
-
-            )
-          ],
-        ),
-      ),
-    );*/

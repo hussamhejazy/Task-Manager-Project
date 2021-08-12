@@ -19,6 +19,7 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     _user = FbAuthController().user;
     _emailTextController = TextEditingController(text: _user.email ?? '');
@@ -28,6 +29,7 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
 
   @override
   void dispose() {
+    // TODO: implement dispose
     _emailTextController.dispose();
     _nameTextController.dispose();
     _passwordTextController.dispose();
@@ -40,7 +42,7 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
       backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Color(0xFF4B53F5)
+            color: Color(0xFF4B53F5)
         ),
         elevation: 1,
         backgroundColor: Colors.white,
@@ -54,20 +56,11 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 80),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            DecoratedBox(
-              decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, 0),
-                  color: Colors.black.withOpacity(0.61),
-                  blurRadius: 6,
-                )
-              ]),
-              child: CircleAvatar(radius: 50),
-            ),
-            SizedBox(height: 10),
+
             Text(
               _user.displayName ?? 'NO NAME',
               style: TextStyle(
@@ -148,11 +141,7 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
       setState(() {
         _user = FbAuthController().user;
       });
+      showSnackBar(context: context, content: 'Profile updated successfully');
     }
-    String message = updated ? 'Profile updated successfully': 'Update profile failed, try again';
-    showSnackBar(
-        context: context,
-        content: message,
-        error: !updated);
   }
 }

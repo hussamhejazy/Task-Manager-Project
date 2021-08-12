@@ -4,35 +4,28 @@ import 'package:task_manager/firebase/fb_auth_controller.dart';
 import 'package:task_manager/utils/helpers.dart';
 import 'package:task_manager/widgets/app_text_field.dart';
 
-class CreateAccountScreen extends StatefulWidget {
-  const CreateAccountScreen({Key? key}) : super(key: key);
+class ForgetPasswordScreen extends StatefulWidget {
+  const ForgetPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _CreateAccountScreenState createState() => _CreateAccountScreenState();
+  _ForgetPasswordScreenState createState() => _ForgetPasswordScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen>
+class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
     with Helpers {
-  late TextEditingController _NameTextController;
   late TextEditingController _emailTextController;
-  late TextEditingController _passwordTextController;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    _NameTextController = TextEditingController();
     _emailTextController = TextEditingController();
-    _passwordTextController = TextEditingController();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _NameTextController.dispose();
     _emailTextController.dispose();
-    _passwordTextController.dispose();
     super.dispose();
   }
 
@@ -44,14 +37,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
         iconTheme: IconThemeData(
             color: Color(0xFF4B53F5)
         ),
-        elevation: 1,
+        elevation: 0,
         backgroundColor: Colors.white,
         title: Text(
-          'CREATE ACCOUNT',
+          'FORGET PASSWORD',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 21,
           ),
         ),
       ),
@@ -61,7 +53,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Create new account...',
+              'Forget Password...',
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -69,29 +61,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
               ),
             ),
             Text(
-              'Enter email and password...',
+              'Enter email to receive reset link...',
               style: TextStyle(
                 color: Colors.grey.shade500,
                 fontSize: 16,
               ),
             ),
-            SizedBox(height: 30),
-            AppTextField(
-              hint: 'Name',
-              controller: _NameTextController,
-              maxLength: 30,
-            ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             AppTextField(
               hint: 'Email',
               controller: _emailTextController,
               maxLength: 30,
-            ),
-            SizedBox(height: 10),
-            AppTextField(
-              hint: 'Password',
-              controller: _passwordTextController,
-              obscureText: true,
             ),
             SizedBox(height: 20),
             ElevatedButton(
@@ -102,9 +82,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
                 ),
               ),
               onPressed: () async {
-                await performCreateAccount();
+                await performForgetPassword();
               },
-              child: Text('CREATE ACCOUNT'),
+              child: Text('SEND'),
             ),
           ],
         ),
@@ -112,25 +92,25 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
     );
   }
 
-  Future<void> performCreateAccount() async {
+  Future<void> performForgetPassword() async {
     if (checkData()) {
-      await createAccount();
+      await forgetPassword();
     }
   }
 
   bool checkData() {
-    if (_emailTextController.text.isNotEmpty &&
-        _passwordTextController.text.isNotEmpty) {
+    if (_emailTextController.text.isNotEmpty) {
       return true;
     }
-    showSnackBar(context: context, content: 'Enter email & password');
+    showSnackBar(context: context, content: 'Enter required data!');
     return false;
   }
 
-  Future<void> createAccount() async {
-    bool status = await FbAuthController().createAccount(context,
-        email: _emailTextController.text,
-        password: _passwordTextController.text);
-    if (status) Navigator.pop(context);
+  Future<void> forgetPassword() async {
+    bool status = await FbAuthController().forgetPassword(context, email: _emailTextController.text);
+    if(status){
+      showSnackBar(context: context, content: 'Reset email sent successfully, check and confirm');
+      Navigator.pop(context);
+    }
   }
 }
