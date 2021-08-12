@@ -57,7 +57,7 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         child: Column(
           children: [
-            DecoratedBox(
+            /*DecoratedBox(
               decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                 BoxShadow(
                   offset: Offset(0, 0),
@@ -67,7 +67,7 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
               ]),
               child: CircleAvatar(radius: 50),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 10),*/
             Text(
               _user.displayName ?? 'NO NAME',
               style: TextStyle(

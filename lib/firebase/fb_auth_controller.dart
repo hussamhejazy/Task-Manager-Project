@@ -47,6 +47,7 @@ class FbAuthController with Helpers {
     return false;
   }
 
+
   User get user => _firebaseAuth.currentUser!;
 
   Future<bool> updateProfile(BuildContext context,

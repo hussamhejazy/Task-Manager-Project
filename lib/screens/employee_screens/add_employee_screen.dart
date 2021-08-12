@@ -160,7 +160,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> with Helpers{
   Future<void> save() async{
     bool status = await FbFirestoreController().CreateEmployee(employee: employee);
     if (status){
-      showSnackBar(context: context, content: 'Department Added Successfully');
+      showSnackBar(context: context, content: 'Employee Added Successfully');
       cleare();
     }
   }

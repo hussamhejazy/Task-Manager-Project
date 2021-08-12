@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/auth/create_account_screen.dart';
+import 'package:task_manager/auth/forget_password_screen.dart';
 import 'package:task_manager/auth/login_screen.dart';
 import 'package:task_manager/screens/account_screen.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         '/hi_screen':(context)=> HiScreen(),
         '/account_screen':(context)=> AccountScreen(),
         '/create_account_screen':(context)=> CreateAccountScreen(),
+        '/forget_password_screen':(context)=> ForgetPasswordScreen(),
 
       },
     );
