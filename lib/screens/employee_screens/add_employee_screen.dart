@@ -209,6 +209,8 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> with Helpers{
   }
 
   Future<void> update({required String id}) async{
+    _employee.name = _nameEditingControllertiti.text;
+    _employee.email = _emailEditingControllertiti.text;
     _employee.password = _passwordEditingControllertiti.text;
     bool status = await FbFirestoreController().updateEmployee(employee: _employee,path:id);
     if (status){
@@ -225,7 +227,9 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> with Helpers{
 
   Employee get employee{
     Employee employee = Employee();
-    employee.path = _employee.path;
+    if(_responsive == 1){
+      employee.path = _employee.path;
+    }
     employee.name = _nameEditingControllertiti.text;
     employee.email = _emailEditingControllertiti.text;
     employee.password = _passwordEditingControllertiti.text;

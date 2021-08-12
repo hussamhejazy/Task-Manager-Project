@@ -7,7 +7,6 @@ import 'package:task_manager/screens/account_screen.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
 import 'package:task_manager/screens/department_screens/add_departtment_Screen.dart';
 import 'package:task_manager/screens/department_screens/department_screen.dart';
-import 'package:task_manager/screens/employee_screens/add_employee_screen.dart';
 import 'package:task_manager/screens/employee_screens/employee_screen.dart';
 import 'package:task_manager/screens/report_screen/attendance_screen.dart';
 import 'package:task_manager/screens/create_leave_screen.dart';
@@ -17,6 +16,7 @@ import 'package:task_manager/screens/main_screen.dart';
 import 'package:task_manager/screens/report_screen/reports_screen.dart';
 import 'package:task_manager/screens/report_screen/team_screen.dart';
 import 'launch_screen.dart';
+import 'nb_screens/pk_task_screen/duty_screens/add_duty_screen.dart';
 
 void main() async{
  WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         '/team_screen':(context)=> TeamScreen(),
         '/hi_screen':(context)=> HiScreen(),
         '/account_screen':(context)=> AccountScreen(),
-        '/account_screen':(context)=> AccountScreen(),
+        '/add_duty_screen':(context)=>AddDutyScreen(),
         '/create_account_screen':(context)=> CreateAccountScreen(),
         '/forget_password_screen':(context)=> ForgetPasswordScreen(),
 

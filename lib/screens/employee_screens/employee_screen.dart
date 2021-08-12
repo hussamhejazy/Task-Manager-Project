@@ -24,6 +24,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
           style: TextStyle(
               fontWeight: FontWeight.bold, fontSize: 21, color: Colors.black),
         ),
+        leading: IconButton(onPressed: (){
+          Navigator.pushReplacementNamed(context, '/main_screen');
+        },icon:Icon(Icons.arrow_back_rounded)),
         elevation: 1,
         actions: [
           IconButton(
