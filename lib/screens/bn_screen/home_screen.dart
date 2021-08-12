@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/firebase/fb_auth_controller.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -8,6 +10,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late User _user;
+
+  @override
+  void initState() {
+    _user = FbAuthController().user;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          'Employee Name',
+                          _user.displayName ?? '_',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -56,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 33,
                           color: Color(0xFFD5D7FF),
                           child: Center(
-                            child: Text('10:00'),
+                            child: Text(_getTime()),
                           ),
                         ),
                         Container(
@@ -64,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 33,
                           color: Colors.white,
                           child: Center(
-                            child: Text('AM'),
+                            child: Text(_Day()),
                           ),
                         )
                       ],
@@ -117,4 +126,24 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 1
       ),
     );
-  }}
+  }
+
+  String _getTime() {
+    TimeOfDay time = TimeOfDay.now();
+      final h = time.hour.toString().padLeft(2, '0');
+      final m = time.minute.toString().padLeft(2, '0');
+
+
+      return '$h : $m';
+    }
+
+  String _Day(){
+    String day = 'AM';
+    if (TimeOfDay.now().hour >= 12) {
+      day = 'PM';
+    }
+    return day;
+  }
+  }
+
+

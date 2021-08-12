@@ -1,24 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
-import 'package:task_manager/models/Employee.dart';
 import 'package:task_manager/models/Task.dart';
 
 import 'add_task_screen.dart';
 
 class SelectEmployee extends StatefulWidget {
   Task _task;
-  SelectEmployee(this._task);
+  String _titleDepartment;
+  SelectEmployee(this._task,this._titleDepartment);
 
   @override
-  _SelectEmployeeState createState() => _SelectEmployeeState(_task,_task.nameEmployee,_task.emailEmployee);
+  _SelectEmployeeState createState() => _SelectEmployeeState(_task,_task.nameEmployee,_task.emailEmployee,_titleDepartment);
 }
 
 class _SelectEmployeeState extends State<SelectEmployee> {
   Task _task;
   String _employeeName ;
   String _employeeEmail ;
-  _SelectEmployeeState(this._task,this._employeeName,this._employeeEmail);
+  String _titleDepartment;
+  _SelectEmployeeState(this._task,this._employeeName,this._employeeEmail,this._titleDepartment);
 
   @override
   Widget build(BuildContext context) {
@@ -53,26 +54,31 @@ class _SelectEmployeeState extends State<SelectEmployee> {
                   vertical: 15,
                 ),        itemCount: data.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          radius: 30,
-                          child: Icon(Icons.person, color: Color(0XFF4B53F5))),
-                      title: Text(data[index].get('name')),
-                      subtitle: Text(data[index].get('email')),
-                      onTap: () async => await _select(
-                            name: data[index].get('name'),
-                            email: data[index].get('email'),
+                  if(data[index].get('department') == _titleDepartment){
+                    return Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 30,
+                            child: Icon(Icons.person, color: Color(0XFF4B53F5))),
+                        title: Text(data[index].get('name')),
+                        subtitle: Text(data[index].get('email')),
+                        onTap: () async => await _select(
+                          name: data[index].get('name'),
+                          email: data[index].get('email'),
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }else{
+                    return SizedBox();
+                  }
+
                 },
                 separatorBuilder: (context, index){
-                  return Divider();
+                  return SizedBox();
                 },
               );
             }else{

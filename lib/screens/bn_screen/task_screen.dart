@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/models/Employee.dart';
 import 'package:task_manager/models/Task.dart';
-import 'package:task_manager/preferences/app_preferences.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
 import 'package:task_manager/screens/nb_screens/pk_task_screen/taskList.dart';
 
@@ -61,7 +59,7 @@ class _TaskScreenState extends State<TaskScreen>
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Task _task = Task();
-            _task.title = '';
+            _task.title = 'Select Duty';
             _task.date = 'Date';
             _task.time = 'Time';
             _task.nameEmployee = 'Employee Name';

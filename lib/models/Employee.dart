@@ -1,4 +1,5 @@
 class Employee{
+  late String path;
   late String name;
   late String email;
   late String password;
