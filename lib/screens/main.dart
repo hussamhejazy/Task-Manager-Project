@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/auth/create_account_screen.dart';
+import 'package:task_manager/auth/forget_password_screen.dart';
 import 'package:task_manager/auth/login_screen.dart';
 import 'package:task_manager/screens/account_screen.dart';
 import 'package:task_manager/preferences/app_preferences.dart';
@@ -12,12 +14,9 @@ import 'package:task_manager/screens/create_leave_screen.dart';
 import 'package:task_manager/screens/hi_screen.dart';
 import 'package:task_manager/screens/report_screen/leave_screen.dart';
 import 'package:task_manager/screens/main_screen.dart';
-import 'package:task_manager/screens/nb_screens/pk_task_screen/add_task_screen.dart';
-import 'package:task_manager/screens/nb_screens/pk_task_screen/task_detail_screen.dart';
 import 'package:task_manager/screens/report_screen/reports_screen.dart';
 import 'package:task_manager/screens/report_screen/team_screen.dart';
 import 'launch_screen.dart';
-import 'nb_screens/pk_task_screen/select_employee_screen.dart';
 
 void main() async{
  WidgetsFlutterBinding.ensureInitialized();
@@ -43,7 +42,6 @@ class MyApp extends StatelessWidget {
         '/attendance_screen':(context)=>Attendance(),
         '/leave_screen':(context)=>LeaveScreen(),
         '/create_leave_screen':(context)=>CreateLeaveScreen(),
-        '/add_employee_screen':(context)=> AddEmployeeScreen(),
         '/employee_screen':(context)=> EmployeeScreen(),
         '/department_screen':(context)=> DepartmentScreen(),
         '/add_department_screen':(context)=> AddDepartmentScreen(),
@@ -51,6 +49,9 @@ class MyApp extends StatelessWidget {
         '/team_screen':(context)=> TeamScreen(),
         '/hi_screen':(context)=> HiScreen(),
         '/account_screen':(context)=> AccountScreen(),
+        '/account_screen':(context)=> AccountScreen(),
+        '/create_account_screen':(context)=> CreateAccountScreen(),
+        '/forget_password_screen':(context)=> ForgetPasswordScreen(),
 
       },
     );
