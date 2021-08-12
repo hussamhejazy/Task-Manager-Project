@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
 import 'package:task_manager/models/Task.dart';
-import 'package:task_manager/screens/bn_screen/task_screen.dart';
-import 'package:task_manager/screens/nb_screens/pk_task_screen/select_employee_screen.dart';
+import 'package:task_manager/screens/nb_screens/pk_task_screen/select_department_task_screen.dart';
+import 'package:task_manager/screens/nb_screens/pk_task_screen/duty_screens/select_duty_screen.dart';
 import 'package:task_manager/utils/helpers.dart';
-
 import '../../main_screen.dart';
 
 class AddTask extends StatefulWidget {
@@ -20,19 +19,16 @@ class _AddTaskState extends State<AddTask> with Helpers {
   _AddTaskState(this._task);
   DateTime? _date;
   TimeOfDay? _time;
-  late TextEditingController _titleEditingController;
   late TextEditingController _noteEditingController;
 
   @override
   void initState() {
     super.initState();
-    _titleEditingController = TextEditingController();
     _noteEditingController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _titleEditingController.dispose();
     _noteEditingController.dispose();
     super.dispose();
   }
@@ -62,22 +58,26 @@ class _AddTaskState extends State<AddTask> with Helpers {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              maxLength: 55,
-              controller: _titleEditingController,
-              decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF4B53F5))),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF4B53F5))),
-                counterText: '',
-                labelText: 'Task',
-                labelStyle: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
+            ListTile(
+              contentPadding: EdgeInsets.all(0),
+              leading: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 25,
+                child: Icon(Icons.assignment,color: Color(0xFF4B53F5),),
               ),
+              title: Text(
+                'Task',
+                style: TextStyle(fontSize: 16),
+              ),
+              subtitle: Text(
+                _task.title,
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              trailing: Icon(
+                Icons.arrow_forward,
+                color: Color(0xFF4B53F5),
+              ),
+              onTap: () async => await  _goScreenDuty(),
             ),
             SizedBox(
               height: 20,
@@ -160,9 +160,9 @@ class _AddTaskState extends State<AddTask> with Helpers {
             ListTile(
               contentPadding: EdgeInsets.all(0),
               leading: CircleAvatar(
-                backgroundColor: Color(0xFF4B53F5),
-                //backgroundImage: ,
+                backgroundColor: Colors.transparent,
                 radius: 25,
+                child: Icon(Icons.person,color: Color(0xFF4B53F5),),
               ),
               title: Text(
                   _task.nameEmployee,
@@ -227,7 +227,6 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
 
   Future _pickDate(BuildContext context) async {
-    _task.title = _titleEditingController.text;
     _task.note = _noteEditingController.text;
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
@@ -247,7 +246,6 @@ class _AddTaskState extends State<AddTask> with Helpers {
       (_date == null) ? _task.date : '${_date!.year}/${_date!.month}/${_date!.day}';
 
   Future _pickTime(BuildContext context) async {
-    _task.title = _titleEditingController.text;
     _task.note = _noteEditingController.text;
     final initialTime = TimeOfDay(hour: 9, minute: 0);
     final newTime = await showTimePicker(
@@ -278,7 +276,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
 
   Future<void> _selectEmployee() async {
-    await _goScreen();
+    await _goScreenDepartment();
   }
 
   Future<void> performSave() async {
@@ -288,7 +286,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
   }
 
   bool checkData() {
-    if (_titleEditingController.text.isNotEmpty &&
+    if (_task.title!= 'Select Task' &&
         _noteEditingController.text.isNotEmpty &&
         _date != 'Date' &&
         _time != 'Time' &&
@@ -311,7 +309,7 @@ class _AddTaskState extends State<AddTask> with Helpers {
 
   Task get task {
     Task task = Task();
-    task.title = _titleEditingController.text;
+    task.title = _task.title;
     task.date = _getDate;
     task.nameEmployee = _task.nameEmployee;
     task.emailEmployee = _task.emailEmployee;
@@ -325,18 +323,28 @@ class _AddTaskState extends State<AddTask> with Helpers {
   }
 
   void fillField(){
-    _titleEditingController.text = _task.title;
     _noteEditingController.text = _task.note;
   }
 
-  Future<void> _goScreen()async{
+  Future<void> _goScreenDepartment()async{
     Task task = Task();
-    task.title = _titleEditingController.text;
+    task.title = _task.title;
     task.date = _getDate;
     task.time = _getTime();
     task.nameEmployee = _task.nameEmployee;
     task.emailEmployee = _task.emailEmployee;
     task.note = _noteEditingController.text;
-    await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectEmployee(task)));
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectDepartmentScreen(task)));
+  }
+
+  Future<void> _goScreenDuty()async{
+    Task task = Task();
+    task.title = _task.title;
+    task.date = _getDate;
+    task.time = _getTime();
+    task.nameEmployee = _task.nameEmployee;
+    task.emailEmployee = _task.emailEmployee;
+    task.note = _noteEditingController.text;
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectDutyScreen(task)));
   }
 }

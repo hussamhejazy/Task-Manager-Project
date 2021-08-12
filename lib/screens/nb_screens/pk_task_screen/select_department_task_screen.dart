@@ -1,44 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
-import 'package:task_manager/screens/department_screens/show_employee_by_department_screen.dart';
+import 'package:task_manager/models/Task.dart';
+import 'package:task_manager/screens/nb_screens/pk_task_screen/select_employee_screen.dart';
 
-class DepartmentScreen extends StatefulWidget {
-  const DepartmentScreen({Key? key}) : super(key: key);
+class SelectDepartmentScreen extends StatefulWidget {
+  Task _task;
+  SelectDepartmentScreen(this._task);
 
   @override
-  _DepartmentScreenState createState() => _DepartmentScreenState();
+  _SelectDepartmentScreenState createState() => _SelectDepartmentScreenState(_task);
 }
 
-class _DepartmentScreenState extends State<DepartmentScreen> {
+class _SelectDepartmentScreenState extends State<SelectDepartmentScreen> {
+  Task _task;
+  _SelectDepartmentScreenState(this._task);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
             color: Color(0xFF4B53F5)
         ),
-        title: Text(
-          'Departments',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 21, color: Colors.black),
-        ),
+        title:Text('Select Department',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 21,color: Colors.black)
+          ,),
         elevation: 1,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/add_department_screen');
-            },
-            icon: Icon(Icons.add),
-            iconSize: 30,
-            color: Color(0XFF4B53F5),
-          ),
-        ],
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
       ),
-      body: StreamBuilder<QuerySnapshot>(
+      body:  StreamBuilder<QuerySnapshot>(
           stream: FbFirestoreController().getDepartments(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting){
@@ -59,10 +54,11 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
                       leading: CircleAvatar(
                           backgroundColor: Colors.transparent,
                           radius: 30,
-                          child: Icon(Icons.workspaces_filled, color: Color(0XFF4B53F5))),
+                          child: Icon(Icons.person, color: Color(0XFF4B53F5))),
                       title: Text(data[index].get('title')),
-                      trailing: IconButton(onPressed: () async => await performDelete(path: data[index].id),icon: Icon(Icons.delete, color: Color(0XFF4B53F5)),),
-                      onTap: () async => await _show(titleDepartment: data[index].get('title')),
+                      onTap: () async => await _openToSelectEmployee(
+                        title: data[index].get('title'),
+                      ),
                     ),
                   );
                 },
@@ -87,11 +83,9 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
     );
   }
 
-  Future<void> performDelete({required String path})async{
-    await FbFirestoreController().deleteDepartment(path: path);
-  }
 
-  Future<void> _show({required String titleDepartment}) async{
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => ShowEmployeeByDepartmentScreen(titleDepartment)));
+  Future<void> _openToSelectEmployee({required String title}) async{
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectEmployee(_task,title)));
+
   }
 }

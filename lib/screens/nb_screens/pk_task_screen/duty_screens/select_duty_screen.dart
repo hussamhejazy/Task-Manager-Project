@@ -1,45 +1,52 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/firebase/fb_firestore_controller.dart';
-import 'package:task_manager/screens/department_screens/show_employee_by_department_screen.dart';
+import 'package:task_manager/models/Task.dart';
 
-class DepartmentScreen extends StatefulWidget {
-  const DepartmentScreen({Key? key}) : super(key: key);
+import '../add_task_screen.dart';
+
+
+class SelectDutyScreen extends StatefulWidget {
+
+  Task _task;
+
+  SelectDutyScreen(this._task);
 
   @override
-  _DepartmentScreenState createState() => _DepartmentScreenState();
+  _SelectDutyScreenState createState() => _SelectDutyScreenState(_task,_task.title);
 }
 
-class _DepartmentScreenState extends State<DepartmentScreen> {
+class _SelectDutyScreenState extends State<SelectDutyScreen> {
+  Task _task;
+  String _title;
+  _SelectDutyScreenState(this._task,this._title);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
             color: Color(0xFF4B53F5)
         ),
-        title: Text(
-          'Departments',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 21, color: Colors.black),
-        ),
+        title:Text('Select Duty',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 21,color: Colors.black)
+          ,),
         elevation: 1,
+        leading: IconButton(onPressed: (){
+          _goScreen(title: _title);
+        },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/add_department_screen');
-            },
-            icon: Icon(Icons.add),
-            iconSize: 30,
-            color: Color(0XFF4B53F5),
+          IconButton(onPressed: (){
+            Navigator.pushNamed(context, '/add_duty_screen');
+          },
+              icon: Icon(Icons.add)
           ),
         ],
       ),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: FbFirestoreController().getDepartments(),
+      body:  StreamBuilder<QuerySnapshot>(
+          stream: FbFirestoreController().getDuty(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting){
               return Center(child: CircularProgressIndicator(),);
@@ -59,15 +66,19 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
                       leading: CircleAvatar(
                           backgroundColor: Colors.transparent,
                           radius: 30,
-                          child: Icon(Icons.workspaces_filled, color: Color(0XFF4B53F5))),
+                          child: Icon(Icons.assignment_turned_in_outlined, color: Color(0XFF4B53F5))),
                       title: Text(data[index].get('title')),
-                      trailing: IconButton(onPressed: () async => await performDelete(path: data[index].id),icon: Icon(Icons.delete, color: Color(0XFF4B53F5)),),
-                      onTap: () async => await _show(titleDepartment: data[index].get('title')),
+                      trailing: IconButton(
+                          onPressed: () async => await performDelete(path: data[index].id),
+                          icon: Icon(Icons.delete, color: Color(0XFF4B53F5))),
+                      onTap: () async => await _select(
+                        title: data[index].get('title'),
+                      ),
                     ),
                   );
                 },
                 separatorBuilder: (context, index){
-                  return Divider();
+                  return SizedBox();
                 },
               );
             }else{
@@ -87,11 +98,28 @@ class _DepartmentScreenState extends State<DepartmentScreen> {
     );
   }
 
-  Future<void> performDelete({required String path})async{
-    await FbFirestoreController().deleteDepartment(path: path);
+
+
+  Future<void> _select({required String title}) async{
+    _title = title;
+    await _goScreen(
+        title: title,
+    );
   }
 
-  Future<void> _show({required String titleDepartment}) async{
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => ShowEmployeeByDepartmentScreen(titleDepartment)));
+
+  Future<void> _goScreen({required String title})async{
+    Task task = Task();
+    task.title = title;
+    task.date = _task.date;
+    task.time = _task.time;
+    task.nameEmployee = _task.nameEmployee;
+    task.emailEmployee = _task.emailEmployee;
+    task.note = _task.note;
+    await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask(task)));
+  }
+
+  Future<void> performDelete({required String path})async{
+    await FbFirestoreController().deleteDuty(path: path);
   }
 }

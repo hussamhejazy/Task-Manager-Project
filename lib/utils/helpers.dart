@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 mixin Helpers {
-  void showSnackBar(
-      {required BuildContext context,
+  void showSnackBar({required BuildContext context,
       required String content,
       bool error = false}) {
     ScaffoldMessenger.of(context).showSnackBar(
