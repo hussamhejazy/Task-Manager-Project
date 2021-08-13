@@ -22,7 +22,6 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Padding(
           padding: const EdgeInsets.only(top: 36),
           child: ListView(
-
             children: [
               ListTile(
                 onTap: () async{

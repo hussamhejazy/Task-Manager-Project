@@ -49,11 +49,12 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
         leading: SizedBox(),
       ),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 30),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 15),
                 AppTextField(
                   hint: 'Email',
                   controller: _emailTextController,
