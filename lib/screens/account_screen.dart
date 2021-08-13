@@ -55,61 +55,62 @@ class _AccountScreenState extends State<AccountScreen> with Helpers {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 80),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-
-            Text(
-              _user.displayName ?? 'NO NAME',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              _user.email ?? 'NO EMAIL',
-              style: TextStyle(
-                color: Colors.grey.shade500,
-                fontSize: 14,
-              ),
-            ),
-            Divider(
-              height: 40,
-              thickness: 1,
-            ),
-            AppTextField(
-              hint: 'Email',
-              controller: _emailTextController,
-              keyboardType: TextInputType.emailAddress,
-              maxLength: 35,
-            ),
-            SizedBox(height: 10),
-            AppTextField(
-              hint: 'Name',
-              controller: _nameTextController,
-              maxLength: 30,
-            ),
-            SizedBox(height: 10),
-            AppTextField(
-              hint: 'Password',
-              controller: _passwordTextController,
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                await performUpdateProfile();
-              },
-              child: Text('SAVE'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                _user.displayName ?? 'NO NAME',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
-            )
-          ],
+              Text(
+                _user.email ?? 'NO EMAIL',
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 14,
+                ),
+              ),
+              Divider(
+                height: 40,
+                thickness: 1,
+              ),
+              AppTextField(
+                hint: 'Email',
+                controller: _emailTextController,
+                keyboardType: TextInputType.emailAddress,
+                maxLength: 35,
+              ),
+              SizedBox(height: 10),
+              AppTextField(
+                hint: 'Name',
+                controller: _nameTextController,
+                maxLength: 30,
+              ),
+              SizedBox(height: 10),
+              AppTextField(
+                hint: 'Password',
+                controller: _passwordTextController,
+                obscureText: true,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () async {
+                  await performUpdateProfile();
+                },
+                child: Text('SAVE'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

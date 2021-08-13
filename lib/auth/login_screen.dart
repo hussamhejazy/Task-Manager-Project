@@ -50,61 +50,60 @@ class _LoginScreenState extends State<LoginScreen>  with Helpers{
       ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppTextField(
-                hint: 'Email',
-                controller: _emailTextController,
-                maxLength: 30,
-              ),
-
-              SizedBox(height: 15),
-              AppTextField(
-                hint: 'Password',
-                controller: _passwordTextController,
-                obscureText: true,
-              ),
-
-              SizedBox(height: 25),
-              ElevatedButton(
-                onPressed: ()async {
-                    await performSignIn();
-                     },
-                child: Text('login'),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.circular(10),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppTextField(
+                  hint: 'Email',
+                  controller: _emailTextController,
+                  maxLength: 30,
+                ),
+                SizedBox(height: 15),
+                AppTextField(
+                  hint: 'Password',
+                  controller: _passwordTextController,
+                  obscureText: true,
+                ),
+                SizedBox(height: 25),
+                ElevatedButton(
+                  onPressed: ()async {
+                      await performSignIn();
+                       },
+                  child: Text('login'),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.circular(10),
+                    ),
                   ),
                 ),
-              ),
-
-              SizedBox(height: 25),
-              SizedBox(
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(context, '/create_account_screen'),
-                      child: Text('CREATE ACCOUNT'),
-                    ),
-                    VerticalDivider(
-                      thickness: 1,
-                      indent: 8,
-                      endIndent: 8,
-                      color: Colors.grey.shade500,
-                      width: 1,
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pushNamed(context, '/forget_password_screen'),
-                      child: Text('FORGET PASSWORD?'),
-                    ),
-                  ],
+                SizedBox(height: 25),
+                SizedBox(
+                  height: 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(context, '/create_account_screen'),
+                        child: Text('CREATE ACCOUNT'),
+                      ),
+                      VerticalDivider(
+                        thickness: 1,
+                        indent: 8,
+                        endIndent: 8,
+                        color: Colors.grey.shade500,
+                        width: 1,
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pushNamed(context, '/forget_password_screen'),
+                        child: Text('FORGET PASSWORD?'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         )
     );

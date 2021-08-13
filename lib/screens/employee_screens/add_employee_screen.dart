@@ -61,116 +61,118 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> with Helpers{
       ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                controller: _nameEditingControllertiti,
-                decoration: InputDecoration(
-                  hintText: 'name',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: _nameEditingControllertiti,
+                  decoration: InputDecoration(
+                    hintText: 'name',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 15),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                controller: _emailEditingControllertiti,
-                decoration: InputDecoration(
-                  hintText: 'email',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1,
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 15),
-              TextField(
-                controller: _passwordEditingControllertiti,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText:'password',
-                 // prefixIcon: Icon(Icons.lock),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 1,
+                SizedBox(height: 15),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: _emailEditingControllertiti,
+                  decoration: InputDecoration(
+                    hintText: 'email',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                        width: 1,
+                      ),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                      width: 1,
+                ),
+                SizedBox(height: 15),
+                TextField(
+                  controller: _passwordEditingControllertiti,
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText:'password',
+                   // prefixIcon: Icon(Icons.lock),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.grey,
+                        width: 1,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                        width: 1,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25),
-              ListTile(
-                contentPadding: EdgeInsets.all(0),
-                leading: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  radius: 25,
-                  child: Icon(Icons.workspaces_filled,color: Color(0xFF4B53F5),),
+                SizedBox(height: 25),
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 25,
+                    child: Icon(Icons.workspaces_filled,color: Color(0xFF4B53F5),),
+                  ),
+                  title: Text(
+                    'Department',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  subtitle: Text(
+                    _employee.department,
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward,
+                    color: Color(0xFF4B53F5),
+                  ),
+                  onTap: () async => await _goScreenDepartment(),
                 ),
-                title: Text(
-                  'Department',
-                  style: TextStyle(fontSize: 16),
-                ),
-                subtitle: Text(
-                  _employee.department,
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward,
-                  color: Color(0xFF4B53F5),
-                ),
-                onTap: () async => await _goScreenDepartment(),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if(_responsive==0){
-                    await performSave();
-                  }else  if(_responsive==1){
-                    await performUpdate(id:_employee.path);
-                  }
+                ElevatedButton(
+                  onPressed: () async {
+                    if(_responsive==0){
+                      await performSave();
+                    }else  if(_responsive==1){
+                      await performUpdate(id:_employee.path);
+                    }
 
-                } ,
-                child: Text((_responsive==1)?'Edit':'Added',),
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.circular(10),
+                  } ,
+                  child: Text((_responsive==1)?'Edit':'Added',),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.circular(10),
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
     );

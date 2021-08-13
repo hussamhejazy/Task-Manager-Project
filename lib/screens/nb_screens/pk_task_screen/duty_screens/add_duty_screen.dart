@@ -44,42 +44,44 @@ class _AddDutyScreenState extends State<AddDutyScreen>  with Helpers{
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _titleEditingControllertiti,
-              decoration: InputDecoration(
-                hintText: 'Duty Title',
-                //prefixIcon: Icon(Icons.email),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Colors.grey,
-                    width: 1,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _titleEditingControllertiti,
+                decoration: InputDecoration(
+                  hintText: 'Duty Title',
+                  //prefixIcon: Icon(Icons.email),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.grey,
+                      width: 1,
+                    ),
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Colors.blue,
-                    width: 1,
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 25),
-            ElevatedButton(
-              onPressed: () async => await performSave(),
-              child: Text('Added'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.circular(10),
+              SizedBox(height: 25),
+              ElevatedButton(
+                onPressed: () async => await performSave(),
+                child: Text('Added'),
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(10),
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

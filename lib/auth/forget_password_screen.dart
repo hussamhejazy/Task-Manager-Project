@@ -17,14 +17,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _emailTextController = TextEditingController();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _emailTextController.dispose();
     super.dispose();
   }
@@ -49,44 +47,46 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen>
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Forget Password...',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
-            ),
-            Text(
-              'Enter email to receive reset link...',
-              style: TextStyle(
-                color: Colors.grey.shade500,
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(height: 20),
-            AppTextField(
-              hint: 'Email',
-              controller: _emailTextController,
-              maxLength: 30,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Forget Password...',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
                 ),
               ),
-              onPressed: () async {
-                await performForgetPassword();
-              },
-              child: Text('SEND'),
-            ),
-          ],
+              Text(
+                'Enter email to receive reset link...',
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 20),
+              AppTextField(
+                hint: 'Email',
+                controller: _emailTextController,
+                maxLength: 30,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () async {
+                  await performForgetPassword();
+                },
+                child: Text('SEND'),
+              ),
+            ],
+          ),
         ),
       ),
     );

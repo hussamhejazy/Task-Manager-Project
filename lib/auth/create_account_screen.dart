@@ -51,50 +51,52 @@ class _CreateAccountScreenState extends State<CreateAccountScreen>
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Create new account...',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
-            ),
-            Text(
-              'Enter email and password...',
-              style: TextStyle(
-                color: Colors.grey.shade500,
-                fontSize: 16,
-              ),
-            ),
-            SizedBox(height: 30),
-            AppTextField(
-              hint: 'Email',
-              controller: _emailTextController,
-              maxLength: 30,
-            ),
-            SizedBox(height: 10),
-            AppTextField(
-              hint: 'Password',
-              controller: _passwordTextController,
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Create new account...',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 26,
                 ),
               ),
-              onPressed: () async {
-                await performCreateAccount();
-              },
-              child: Text('CREATE ACCOUNT'),
-            ),
-          ],
+              Text(
+                'Enter email and password...',
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 30),
+              AppTextField(
+                hint: 'Email',
+                controller: _emailTextController,
+                maxLength: 30,
+              ),
+              SizedBox(height: 10),
+              AppTextField(
+                hint: 'Password',
+                controller: _passwordTextController,
+                obscureText: true,
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () async {
+                  await performCreateAccount();
+                },
+                child: Text('CREATE ACCOUNT'),
+              ),
+            ],
+          ),
         ),
       ),
     );
